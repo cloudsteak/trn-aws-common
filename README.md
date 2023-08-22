@@ -30,7 +30,7 @@ echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;b
 
 10. Végül kattintsunk a `Launch instance` gombra
 
-11. Pár másodperc múlva el is készül a gép. Ha az alábbi üzenetet látjuk, kkattintsunk az `i-**********` linkre
+11. Pár másodperc múlva el is készül a gép. Ha az alábbi üzenetet látjuk, kattintsunk az `i-**********` linkre
 ```html
 Success
 Successfully initiated launch of instance (i-**********)
