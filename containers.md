@@ -6,11 +6,9 @@
 
 https://github.com/weaveworks/eksctl
 
-
 ### Előfeltételek az EKS létrehozásához
 
 Parancssorban bejelentkezve a megfeleő AWS fiókba
-
 
 ### Ceate EKS cluster
 
@@ -26,7 +24,6 @@ eksctl create cluster \
 
 Megjegyzés: Ez egy hosszú folyamat (kb. 15-20 perc)
 
-
 ### Kapcsolódás EKS-hez
 
 ```bash
@@ -40,15 +37,15 @@ kubectl get nodes --kubeconfig ~/.kube/config
 ### ECR - konténer tároló létrehozás
 
 Parancssorban futtasuk le a parancsot a megfeleő beálításokkal.
+
 - Név: `docker-projekt`
 - Régió: `eu-central-1`
 
 ```bash
 aws ecr create-repository \
     --repository-name docker-projekt \
-    --region eu-central-1 
+    --region eu-central-1
 ```
-
 
 #### Policy, hogy az EKS hozzáférjen az ECR-hez
 
@@ -56,26 +53,27 @@ Jelenleg nem részletezem. :-)
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
 ## Alkalmazás telepítése EKS-re
 
 1. Létrehozunk egy névteret az EKS-en
+
 ```bash
 kubectl create namespace best-new-tracks
 ```
@@ -90,13 +88,12 @@ kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/mai
 
 ```bash
 kubectl -n best-new-tracks get deployment
-kubectl -n best-new-tracks get svc 
+kubectl -n best-new-tracks get svc
 ```
 
 4. Nézzük mit látunk a böngészőnkben
 
 Másoljuk ki az `EXTERNAL-IP` értékét a. második parancs eredményéből. Majd másoljuk be egy új böngésző fülre az alábbi módon: `http://<EXTERNAL-IP>`
-
 
 ## Egyéb EKS
 
@@ -133,6 +130,7 @@ kubectl -n best-new-tracks scale --replicas=5 deployment best-new-tracks
 # Kevesebb POD manuálisan
 kubectl -n best-new-tracks scale --replicas=1 deployment best-new-tracks
 ```
+
 ### Minden erőforrás egy névtéren belül
 
 ```bash
@@ -143,4 +141,27 @@ kubectl -n best-new-tracks get all
 
 ```bash
 kubectl delete ns best-new-tracks
+```
+
+### EKS node szerverek skálázása
+
+```bash
+# Node group-ok lekérdezése
+eksctl get nodegroup --cluster=aws-eks-demo
+```
+
+```bash
+# Node-ok számának növelése
+eksctl scale nodegroup --cluster=aws-eks-demo --nodes=3 --name=primary-nodes --nodes-min=1 --nodes-max=5 --wait
+```
+
+```bash
+# Node-ok számának csökkentése
+eksctl scale nodegroup --cluster=aws-eks-demo --nodes=1 --name=primary-nodes --nodes-min=1 --nodes-max=5 --wait
+```
+
+### EKS törlése
+
+```bash
+eksctl delete cluster --name aws-eks-demo
 ```
