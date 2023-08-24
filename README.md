@@ -6,3 +6,9 @@ AWS Általános segédletek
 Minden ami az AWS virtuálisgépek kapcsán hasznos lehet
 
 [EC2](./ec2.md)
+
+## Kiszolgáló mentes megoldások
+
+Elastic BeanStalk, Lambda
+
+[Kiszolgáló nélküli megoldások (Serverless)](./serverless.md)
