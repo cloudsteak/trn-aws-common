@@ -1,1 +1,1 @@
-# Kontérnerek és Kubernetes (Docker & K8s)
+# Konténerek és Kubernetes (Docker & K8s)
