@@ -1,4 +1,4 @@
-# trn-aws-common
+# AWS Cloud tudástár
 AWS Általános segédletek
 
 ## EC2 (virtuálisgép)
