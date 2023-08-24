@@ -3,7 +3,7 @@ AWS Általános segédletek
 
 ## Virtuális gépek
 
-Minden ami az AWS virtuálisgépek kapcsán hasznos lehet és egy kis Elastic Beanstalk.
+Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstalk.
 
 [Virtuális gépek (Compute)](./ec2.md)
 
