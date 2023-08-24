@@ -1,7 +1,7 @@
 # AWS Cloud tudástár
 AWS Általános segédletek
 
-## EC2 (virtuálisgép)
+## Virtuális gépek
 
 Minden ami az AWS virtuálisgépek kapcsán hasznos lehet és egy kis Elastic Beanstalk.
 
