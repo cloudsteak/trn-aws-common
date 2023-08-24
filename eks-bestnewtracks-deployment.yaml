@@ -1,0 +1,47 @@
+# eks-bestnewtracks-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: best-new-tracks
+  namespace: best-new-tracks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: best-new-tracks-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: best-new-tracks-deployment
+    spec:
+      containers:
+        - image: 700478352903.dkr.ecr.eu-central-1.amazonaws.com/best-new-tracks:latest
+          name: best-new-tracks
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: best-new-tracks
+          resources:
+            requests:
+              cpu: "0.25"
+              memory: "64Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: best-new-tracks-clusterip
+  namespace: best-new-tracks
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "http"
+      port: 80
+      targetPort: 8080
+  selector:
+    app: best-new-tracks-deployment
