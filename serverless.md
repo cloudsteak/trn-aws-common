@@ -41,7 +41,7 @@ Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 1. `Domain` felirat alatti linkre kattintva megnyílik az alkalmazásunk
 
 
-### NodeJS alkalmazás Beanstalk alkalmazás GitHub-ról
+### NodeJS alkalmazás GitHub-ról
 
 1. Jelentkezzünk be a [GitHub](https://github.com) fiókunkba
 2. AWS konzolon nyissuk meg a [CodePipeline](https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines) kezelőfelületét
