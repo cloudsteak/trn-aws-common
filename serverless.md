@@ -76,4 +76,4 @@ Hivatalos segítlet, hogyan lehet bejelentkezni a WordPress-re: https://lightsai
 11. menjünk vissza a WordPress oldalunkhoz
 12. Username: `user`
 13. Password pedig az amit kimásoltunk a parancssorból
-14. `Lo In` gombra kattintve beléptünk a WordPress oldalunkra és el is kezdhetjük használni
+14. `Log In` gombra kattintve beléptünk a WordPress oldalunkra és el is kezdhetjük használni
