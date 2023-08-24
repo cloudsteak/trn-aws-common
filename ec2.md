@@ -12,7 +12,7 @@ Néhány hasznos parancs, vagy segédlet.
 4. Amazom Machine Image: Amazon Linux
 5. Instance type: t2.micro
 6. Key pair name: 
-    - Ha van már létező kulcs párunk, kkor válasszuk azt
+    - Ha van már létező kulcs párunk, akkor válasszuk azt
     - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
 7. A `Network settings` részben pipáljuk be az `Allow HTTP traffic from internet` lehetőséget
 8. `Advanced details` részt nyissuk le és görgessünk az oldal aljára

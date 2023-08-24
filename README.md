@@ -9,6 +9,6 @@ Minden ami az AWS virtuálisgépek kapcsán hasznos lehet
 
 ## Kiszolgáló mentes megoldások
 
-Elastic BeanStalk, Lambda
+Elastic Beanstalk, Lambda
 
 [Kiszolgáló nélküli megoldások (Serverless)](./serverless.md)
