@@ -128,10 +128,10 @@ kubectl -n best-new-tracks get pods
 
 ```bash
 # Több POD manuálisan
-kubectl -n best-new-tracks get pods scale --replicas=5 deployment best-new-tracks
+kubectl -n best-new-tracks scale --replicas=5 deployment best-new-tracks
 
 # Kevesebb POD manuálisan
-kubectl -n best-new-tracks get pods scale --replicas=1 deployment best-new-tracks
+kubectl -n best-new-tracks scale --replicas=1 deployment best-new-tracks
 ```
 ### Minden erőforrás egy névtéren belül
 
