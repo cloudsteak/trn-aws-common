@@ -18,3 +18,9 @@ Lambda
 S3 tároló
 
 [Tárolás és fájlok (Storage)](./storage.md)
+
+## Kontérnerek és Kubernetes (Docker & K8s)
+
+EKS cluster és ECR
+
+[Kontérnerek és Kubernetes (Docker & K8s)](./containers.md)
