@@ -3,12 +3,12 @@ AWS Általános segédletek
 
 ## EC2 (virtuálisgép)
 
-Minden ami az AWS virtuálisgépek kapcsán hasznos lehet
+Minden ami az AWS virtuálisgépek kapcsán hasznos lehet és egy kis Elastic Beanstalk.
 
-[EC2](./ec2.md)
+[Virtuális gépek (Compute)](./ec2.md)
 
 ## Kiszolgáló mentes megoldások
 
-Elastic Beanstalk, Lambda
+Lambda
 
 [Kiszolgáló nélküli megoldások (Serverless)](./serverless.md)
