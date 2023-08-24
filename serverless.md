@@ -81,8 +81,8 @@ Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been created.
 ```
 
 Két lépésbő áll a folyamatunk:
-1. Source: GitHub kódban történt változáskor a változásokat észleli és azokat elkezdi felolvasni
-2. Deploy: Lefordítja és telepíti az alkalmazást a Beanstalk köznyezetünkre
+1. **Source**: GitHub kódban történt változáskor a változásokat észleli és azokat elkezdi felolvasni
+2. **Deploy**: Lefordítja és telepíti az alkalmazást a Beanstalk köznyezetünkre
 
 A folyamat interaktív és 3-4 perc után látható, hogy mindkét lépés `Succeeded` állapotú lesz. Ekkor a korábbi linkket frissítve a böngészónkben láthatjuk az alkalmazásunkat.
 
