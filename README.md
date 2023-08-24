@@ -12,3 +12,9 @@ Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstal
 Lambda
 
 [Kiszolgáló nélküli megoldások (Serverless)](./serverless.md)
+
+## Tárolás és fájlok (Storage)
+
+S3 tároló
+
+[Tárolás és fájlok (Storage)](./storage.md)
