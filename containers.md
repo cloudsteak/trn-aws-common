@@ -139,3 +139,8 @@ kubectl -n best-new-tracks scale --replicas=1 deployment best-new-tracks
 kubectl -n best-new-tracks get all
 ```
 
+### Névtér törlése (minden erőforrással együtt!)
+
+```bash
+kubectl delete ns best-new-tracks
+```
