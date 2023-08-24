@@ -83,5 +83,59 @@ kubectl create namespace best-new-tracks
 2. Létrehozzuk az alkalmazást és a hozzá tartozó erőforrásokat EKS-en belül
 
 ```bash
-kubectl apply -f eks-bestnewtracks-deployment.yaml --namespace best-new-tracks
+kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/main/eks-bestnewtracks-deployment.yaml --namespace best-new-tracks
 ```
+
+3. Ellenőrizzük az eredményt
+
+```bash
+kubectl -n best-new-tracks get deployment
+kubectl -n best-new-tracks get svc 
+```
+
+4. Nézzük mit látunk a böngészőnkben
+
+Másoljuk ki az `EXTERNAL-IP` értékét a. második parancs eredményéből. Majd másoljuk be egy új böngésző fülre az alábbi módon: `http://<EXTERNAL-IP>`
+
+
+## Egyéb EKS
+
+### Monitoring engedélyezése
+
+Ha a következő hibaüzenetet kapjuk: `error: Metrics API not available`
+
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+
+### Teljesítmény lekérdezések
+
+```bash
+# Node szerverek CPU és Memória használata
+kubectl top nodes
+
+# POD-ok CPU és Memória használata
+kubectl top pods --all-namespaces
+```
+
+### POD-ok lekérdezése egy névtérből
+
+```bash
+kubectl -n best-new-tracks get pods
+```
+
+### Skálázás
+
+```bash
+# Több POD manuálisan
+kubectl -n best-new-tracks get pods scale --replicas=5 deployment best-new-tracks
+
+# Kevesebb POD manuálisan
+kubectl -n best-new-tracks get pods scale --replicas=1 deployment best-new-tracks
+```
+### Minden erőforrás egy névtéren belül
+
+```bash
+kubectl -n best-new-tracks get all
+```
+
