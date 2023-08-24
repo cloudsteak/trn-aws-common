@@ -6,6 +6,8 @@ Egy NodeJS alkalmazást fogunk CD folyamattal "telepíteni" Amazon ElasticBeanst
 
 Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 
+### Beanstalk alkalmazás létrehozása
+
 1. Nyissuk meg a Beanstalk kezelő felületét: https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home
 2. Katintsunk az [Create Application](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home/create-environment) gombra
 3. `Web server environment` gomb
@@ -31,3 +33,14 @@ Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 18. `Next`
 19. `ReviewInfo` oldalon ellenőrizzük az eddig beállított értékeket
 20. `Submit` gombra kattintva elindul a Beanstalk alkalmazásunk létrehozása
+
+3-4 perc alatt el is készül az alkalmazásunk
+
+### Beanstalk alkalmazás ellenőrzése
+
+1. `Domain` felirat alatti linkre kattintva megnyílik az alkalmazásunk
+
+
+### NodeJS alkalmazás Beanstalk alkalmazás GitHub-ról
+
+1. Jelentkezzünk be a [GitHub](https://github.com) fiókunkba
