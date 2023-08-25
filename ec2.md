@@ -45,7 +45,7 @@ Successfully initiated launch of instance (i-**********)
 
 Egy NodeJS alkalmazást fogunk CD folyamattal "telepíteni" Amazon ElasticBeanstalk-ra
 
-Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
+Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 
 ### Beanstalk alkalmazás létrehozása
 
