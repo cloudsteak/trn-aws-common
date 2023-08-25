@@ -4,7 +4,7 @@
 
 Egy alap demó Lamda kapcsán.
 
-1.  Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home/begin
+1.  Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
 2.  [Create a function](https://eu-central-1.console.aws.amazon.com/lambda/home/create/function?firstrun=true)
 3.  Válasszuk a `Use a blueprint` lehetőséget, hiszen egy már előre megírt alapot szeretnánkl csupán létrehozni.
 4.  Blueprint name: `Getting started with Lambda HTTP`
