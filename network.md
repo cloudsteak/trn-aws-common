@@ -1,5 +1,16 @@
 # Hálózat (Network)
 
+## VPC Peering
+
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreatePeeringConnection:
+    - Name: VPC-01
+    - VPC ID (Requester): VPN oldali VPC
+    - VPC ID (Accepter): default
+2. Create peering connection 
+3. Actions > Accept request
+
+
 ## VPN (Virtual Private Network)
 
 ```bash
