@@ -15,11 +15,11 @@ Parancssorban bejelentkezve a megfeleő AWS fiókba
 ```bash
 eksctl create cluster \
 --name aws-eks-demo \
---version 1.26 \
+--version 1.27 \
 --region eu-central-1 \
 --nodegroup-name primary-nodes \
---node-type t3a.medium \
---nodes 1
+--node-type t3a.xlarge \
+--nodes 2
 ```
 
 Megjegyzés: Ez egy hosszú folyamat (kb. 15-20 perc)
@@ -75,25 +75,27 @@ Jelenleg nem részletezem. :-)
 1. Létrehozunk egy névteret az EKS-en
 
 ```bash
-kubectl create namespace best-new-tracks
+kubectl create namespace node-demo
 ```
 
 2. Létrehozzuk az alkalmazást és a hozzá tartozó erőforrásokat EKS-en belül
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/main/eks-bestnewtracks-deployment.yaml --namespace best-new-tracks
+kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/main/eks-node-demo.yaml --namespace node-demo
 ```
 
 3. Ellenőrizzük az eredményt
 
 ```bash
-kubectl -n best-new-tracks get deployment
-kubectl -n best-new-tracks get svc
+kubectl -n node-demo get deployment
+kubectl -n node-demo get svc
 ```
 
 4. Nézzük mit látunk a böngészőnkben
 
 Másoljuk ki az `EXTERNAL-IP` értékét a. második parancs eredményéből. Majd másoljuk be egy új böngésző fülre az alábbi módon: `http://<EXTERNAL-IP>`
+
+_Megjegyzés: Ha nem elérhető az alkalmazás, akkor keressük meg a `Cluster security group`-ot és adjuk hozzá azt a szabályt, ami beengedi a megfelelő portokat a `0.0.0.0/0` tartományból._
 
 ## Egyéb EKS
 
@@ -118,29 +120,29 @@ kubectl top pods --all-namespaces
 ### POD-ok lekérdezése egy névtérből
 
 ```bash
-kubectl -n best-new-tracks get pods
+kubectl -n node-demo get pods
 ```
 
 ### Skálázás
 
 ```bash
 # Több POD manuálisan
-kubectl -n best-new-tracks scale --replicas=5 deployment best-new-tracks
+kubectl -n node-demo scale --replicas=5 deployment node-demo
 
 # Kevesebb POD manuálisan
-kubectl -n best-new-tracks scale --replicas=1 deployment best-new-tracks
+kubectl -n node-demo scale --replicas=1 deployment node-demo
 ```
 
 ### Minden erőforrás egy névtéren belül
 
 ```bash
-kubectl -n best-new-tracks get all
+kubectl -n node-demo get all
 ```
 
 ### Névtér törlése (minden erőforrással együtt!)
 
 ```bash
-kubectl delete ns best-new-tracks
+kubectl delete ns node-demo
 ```
 
 ### EKS node szerverek skálázása
