@@ -1,4 +1,5 @@
 # Virtuális gépek (Compute)
+
 ## EC2 instances (virtuális gépek)
 
 Néhány hasznos parancs, vagy segédlet.
@@ -12,9 +13,9 @@ Néhány hasznos parancs, vagy segédlet.
 3. Name: AWS-Web
 4. Amazom Machine Image: Amazon Linux
 5. Instance type: t2.micro
-6. Key pair name: 
-    - Ha van már létező kulcs párunk, akkor válasszuk azt
-    - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
+6. Key pair name:
+   - Ha van már létező kulcs párunk, akkor válasszuk azt
+   - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
 7. A `Network settings` részben pipáljuk be az `Allow HTTP traffic from internet` lehetőséget
 8. `Advanced details` részt nyissuk le és görgessünk az oldal aljára
 9. A `User data` mezőbe illeszkük bele az alábbi kódot:
@@ -31,9 +32,9 @@ echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;b
 10. Végül kattintsunk a `Launch instance` gombra
 
 11. Pár másodperc múlva el is készül a gép. Ha az alábbi üzenetet látjuk, kattintsunk az `i-**********` linkre
+
 ```html
-Success
-Successfully initiated launch of instance (i-**********)
+Success Successfully initiated launch of instance (i-**********)
 ```
 
 12. Várjuk meg, amíg a `Status check` mező értéke `2/2` értéket mutat
@@ -55,14 +56,14 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 4. Application name: NodeJS WebApp
 5. `Environment name` maradhat, amit a konzol generál
 6. `Platform` szekció:
-    - Platform type: `Managed platform`
-    - Platform: `Node.js`
-    - Platform branch: `Node.js 18`
+   - Platform type: `Managed platform`
+   - Platform: `Node.js`
+   - Platform branch: `Node.js 18`
 7. Application code: `Sample application`
 8. Presets: `Single instance (free tier eligible)`
 9. `Next`
 10. Service role: `Create and use new service role`
-11. EC2 Key pair: 
+11. EC2 Key pair:
     - Ha van már létező kulcs párunk, akkor válasszuk azt
     - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
 12. `Next`
@@ -81,7 +82,6 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 
 1. `Domain` felirat alatti linkre kattintva megnyílik az alkalmazásunk
 
-
 ### NodeJS alkalmazás GitHub-ról
 
 1. Jelentkezzünk be a [GitHub](https://github.com) fiókunkba
@@ -92,17 +92,24 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 6. `Next`
 7. `Source` szekcióban, Sourve Provider: `GitHub (Version 2)`
 8. `Connection`
-    - Ha van létező kapcsolatunk, használjuk azt
-    - Ha nincs létező kapcsolatunk, akkor kattintsunk a `Connect to GitHub` gombra
-        8.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
-        8.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
-        8.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
-        8.4. `Connect`
-        8.5. Alábbi zöld hátterű üzenetet kell látnunk: 
-        ```html
-        Ready to connect
-        Your GitHub connection is ready for use.
-        ```
+
+   - Ha van létező kapcsolatunk, használjuk azt
+   - Ha nincs létező kapcsolatunk, akkor kattintsunk a `Connect to GitHub` gombra
+
+     8.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
+
+     8.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
+
+     8.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
+
+     8.4. `Connect`
+
+     8.5. Alábbi zöld hátterű üzenetet kell látnunk:
+
+     ```html
+     Ready to connect Your GitHub connection is ready for use.
+     ```
+
 9. `Repository name` mezőnál válasszuk azt ahol a kódunk található
 10. Branch name: `main`
 11. `Next`
@@ -116,12 +123,14 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 19. `Review` oldalon ellenőrizzük az eddig beállított értékeket
 20. `Create pipeline` gombra kattintva elindul a automatizáció létrehozása és az alkalmazás telepítése GitHub-ról
 21. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
+
 ```html
-Success
-Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been created.
+Success Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been
+created.
 ```
 
 Két lépésbő áll a folyamatunk:
+
 1. **Source**: GitHub kódban történt változáskor a változásokat észleli és azokat elkezdi felolvasni
 2. **Deploy**: Lefordítja és telepíti az alkalmazást a Beanstalk köznyezetünkre
 
