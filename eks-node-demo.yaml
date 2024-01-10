@@ -1,28 +1,35 @@
-# eks-bestnewtracks-deployment.yaml
+# eks-node-demo.yaml
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: node-demo
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: best-new-tracks
-  namespace: best-new-tracks
+  name: node-demo
+  namespace: node-demo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: best-new-tracks-deployment
+      app: node-demo-deployment
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: best-new-tracks-deployment
+        app: node-demo-deployment
     spec:
       containers:
-        - image: 700478352903.dkr.ecr.eu-central-1.amazonaws.com/best-new-tracks:latest
-          name: best-new-tracks
+        - image: 700478352903.dkr.ecr.eu-central-1.amazonaws.com/trn-node-demo-docker:latest
+          name: trn-node-demo-docker
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
-              name: best-new-tracks
+            - containerPort: 3000
+              name: node-demo
           resources:
             requests:
               cpu: "0.25"
@@ -35,13 +42,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: best-new-tracks-clusterip
-  namespace: best-new-tracks
+  name: node-demo-clusterip
+  namespace: node-demo
 spec:
   type: LoadBalancer
   ports:
     - name: "http"
       port: 80
-      targetPort: 8080
+      targetPort: 3000
   selector:
-    app: best-new-tracks-deployment
+    app: node-demo-deployment
