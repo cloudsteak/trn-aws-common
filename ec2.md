@@ -125,8 +125,8 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 21. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
 
 ```html
-Success Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been
-created.
+Success
+Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been created.
 ```
 
 Két lépésbő áll a folyamatunk:
