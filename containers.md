@@ -95,7 +95,7 @@ kubectl -n node-demo get svc
 
 Másoljuk ki az `EXTERNAL-IP` értékét a. második parancs eredményéből. Majd másoljuk be egy új böngésző fülre az alábbi módon: `http://<EXTERNAL-IP>`
 
-_Megjegyzés: Ha nem elérhető az alkalmazás, akkor keressük meg a `Cluster security group`-ot és adjuk hozzá azt a szabályt, ami beengedi a megfelelő portokat a `0.0.0.0/0` tartományból.
+_Megjegyzés: Ha nem elérhető az alkalmazás, akkor keressük meg a `Cluster security group`-ot és adjuk hozzá azt a szabályt, ami beengedi a megfelelő portokat a `0.0.0.0/0` tartományból._
 
 ## Egyéb EKS
 
