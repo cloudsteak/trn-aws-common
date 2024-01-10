@@ -81,7 +81,7 @@ kubectl create namespace node-demo
 2. Létrehozzuk az alkalmazást és a hozzá tartozó erőforrásokat EKS-en belül
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/main/eks-node-demo.yaml --namespace node-demo
+kubectl apply -f https://raw.githubusercontent.com/cloudsteak/trn-aws-common/main/eks-node-demo.yaml
 ```
 
 3. Ellenőrizzük az eredményt
@@ -166,4 +166,33 @@ eksctl scale nodegroup --cluster=aws-eks-demo --nodes=1 --name=primary-nodes --n
 
 ```bash
 eksctl delete cluster --name aws-eks-demo
+```
+
+
+### Kubernetes Dashboard
+
+1. Telepítés
+
+```bash
+export DASHBOARD_VERSION="v2.6.0"
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/${DASHBOARD_VERSION}/aio/deploy/recommended.yaml
+```
+
+2. Proxy
+
+Külön parancssorban, mert futni fog
+
+```bash
+kubectl proxy --port=8080 --address=0.0.0.0 --disable-filter=true &
+```
+
+3. Dashboard kész
+
+Böngészőben: http://localhost:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+4. Token beszerzése az EKS-ről:
+
+```bash
+aws eks get-token --cluster-name aws-eks-demo | jq -r '.status.token'
 ```
