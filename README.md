@@ -1,7 +1,6 @@
 # AWS Cloud tudástár
 AWS Általános segédletek
 
-- Demók: https://github.com/cloudsteak/trn-aws-common
 - Szótár: https://cloudsteak-gmk-shared.s3.eu-central-1.amazonaws.com/all-cloud-glossary.png 
 - AWS szójegyzék: https://docs.aws.amazon.com/general/latest/gr/glos-chap.html 
 - Felhők összehasonlítása: https://lucid.app/lucidchart/13fde51a-271f-456a-b2b3-ef6869f9ee6a/view?page=GiFLkXTb1E1J
