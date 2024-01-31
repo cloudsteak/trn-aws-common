@@ -24,6 +24,7 @@ Expand-Archive $zip -Force
 
 
 Write-Host easyrsa mappa
+Remove-Item easyrsa-Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory easyrsa
 
 Move-Item $dir\EasyRSA-$version\* -Destination easyrsa -Force 
