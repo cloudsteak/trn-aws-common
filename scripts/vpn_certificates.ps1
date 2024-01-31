@@ -1,13 +1,13 @@
  #PowerShell
 
- Write-Host ####### Easy RSA letöltése ####### -ForegroundColor Green
+ Write-Host ####### Easy RSA ####### -ForegroundColor Green
 
 $repo = "OpenVPN/easy-rsa"
 $file = "EasyRSA-3.1.7-win64.zip"
 
 $releases = "https://api.github.com/repos/$repo/releases"
 
-Write-Host Legutolsó verzió lekérdezése
+Write-Host Friss csomag - keres
 $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
 
 $download = "https://github.com/$repo/releases/download/$tag/$file"
@@ -16,17 +16,16 @@ $zip = "$name-$tag.zip"
 $dir = "$name-$tag"
 $version = $tag.Replace("v", "")
 
-Write-Host Legutolsó verzió letöltése
+Write-Host Friss csomag - beszerez
 Invoke-WebRequest $download -Out $zip
 
-Write-Host Fájlok kicsomagolása
+Write-Host Unzip
 Expand-Archive $zip -Force
 
 
-Write-Host easyrsa mappa létrehozása
+Write-Host easyrsa mappa
 New-Item -ItemType Directory easyrsa
 
-Write-Host Fájlok áthelyezése easyrsa mappába
 Move-Item $dir\EasyRSA-$version\* -Destination easyrsa -Force 
 
 # Cleaning up target dir
@@ -36,7 +35,7 @@ Remove-Item $name -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item $zip -Force
 Remove-Item $dir -Recurse -Force
 
-Write-Host ####### Tanúsítvány létrehozás ####### -ForegroundColor Green
+Write-Host ####### Cert folyamat ####### -ForegroundColor Green
 
 
 $desktopPath = [System.Environment]::GetFolderPath('Desktop')
@@ -50,8 +49,7 @@ New-Item -ItemType Directory -Path $folder
 Set-Location -Path easyrsa
 
 # Start easyrsa shell
-bin\sh.exe bin\easyrsa-shell-init.sh
-
+Start-Process .\EasyRSA-Start.bat -Wait -NoNewWindow
 
 echo -e "./easyrsa init-pki"
 ./easyrsa init-pki
