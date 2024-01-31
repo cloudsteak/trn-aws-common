@@ -29,9 +29,6 @@ New-Item -ItemType Directory easyrsa
 
 Move-Item $dir\EasyRSA-$version\* -Destination easyrsa -Force 
 
-# Cleaning up target dir
-Remove-Item $name -Recurse -Force -ErrorAction SilentlyContinue 
-
 # Removing temp files
 Remove-Item $zip -Force
 Remove-Item $dir -Recurse -Force
