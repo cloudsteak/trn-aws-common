@@ -1,6 +1,6 @@
  #PowerShell
 
- Write-Host ####### Easy RSA ####### -ForegroundColor Green
+ Write-Host "####### Easy RSA #######" -ForegroundColor Green
 
 $repo = "OpenVPN/easy-rsa"
 $file = "EasyRSA-3.1.7-win64.zip"
@@ -34,10 +34,10 @@ Move-Item $dir\EasyRSA-$version\* -Destination easyrsa -Force
 Remove-Item $zip -Force
 Remove-Item $dir -Recurse -Force
 
-Write-Host ####### Start Shell ####### -ForegroundColor Green
+Write-Host "####### Start Shell #######" -ForegroundColor Green
 
 # Set working directory
 Set-Location -Path easyrsa
 
 # Start easyrsa shell
-Start-Process .\EasyRSA-Start.bat -Wait
+Start-Process .\EasyRSA-Start.bat -Wait -NoNewWindow

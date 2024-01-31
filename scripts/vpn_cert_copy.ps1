@@ -1,12 +1,14 @@
 
 #PowerShell
 
-Write-Host ####### Cert folyamat ####### -ForegroundColor Green
+Write-Host "####### Cert folyamat #######" -ForegroundColor Green
 
+# Set working directory
+Set-Location -Path easyrsa
 
 $desktopPath = [System.Environment]::GetFolderPath('Desktop')
 
-$certDir = Read-Host -Prompt 'Add meg a mappa nevét'
+$certDir = Read-Host -Prompt 'VPN cert mappa neve'
 
 $folder = (Join-Path -Path $desktopPath -ChildPath $certDir)
 New-Item -ItemType Directory -Path $folder
