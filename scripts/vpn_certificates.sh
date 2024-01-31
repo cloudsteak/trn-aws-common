@@ -19,8 +19,6 @@ git clone https://github.com/OpenVPN/easy-rsa.git
 echo -e "cd easy-rsa/easyrsa3"
 cd easy-rsa/easyrsa3
 
-pwd
-
 echo -e "./easyrsa init-pki"
 ./easyrsa init-pki
 
