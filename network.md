@@ -13,6 +13,8 @@
 
 ## VPN (Virtual Private Network)
 
+### A. Linux és MacOS
+
 ```bash
 chmod +x scripts/vpn_certificates.sh
 ```
@@ -25,6 +27,58 @@ chmod +x scripts/vpn_certificates.sh
 - Tanúsítvány neve
 - yes
 - yes
+
+### A. Windows
+
+1. Nyiss egy powershell-t és futtasd le a következő parancsot:
+
+```powershell
+.\scripts\easyrsa_shell.ps1
+```
+
+2. Miután megnyílik a shell, futtasd le a következő parancsokat a shell-ben:
+
+2.1.
+```bash
+echo -e "./easyrsa init-pki"
+./easyrsa init-pki
+```
+
+2.2.
+```bash
+echo -e "./easyrsa build-ca nopass"
+./easyrsa build-ca nopass
+```
+
+Megjegyzés: `yes`-el kell válaszolni a kérdésekre.
+
+2.3.
+```bash
+echo -e "./easyrsa build-server-full server nopass"
+./easyrsa build-server-full server nopas
+```
+Megjegyzés: `yes`-el kell válaszolni a kérdésekre.
+
+2.4.
+```bash
+echo -e "./easyrsa build-client-full client1.domain.tld nopass"
+./easyrsa build-client-full client1.domain.tld nopass
+```
+Megjegyzés: `yes`-el kell válaszolni a kérdésekre.
+
+2.5.
+```bash
+exit
+```
+
+3. Ezzel készen vannak a tanúsítványok. Most helyezzük át őket a saját DEsktopunkra. Ehhez futtassuk le a következő parancsot a powershell-ben:
+
+```powershell
+.\scripts\copy_certificates.ps1
+```
+
+Megjegyzés: Bekéri a mappa nevét amit a Desktop-on szeretnénk létrehozni. Pl: `vpncert`
+
 
 ### AWS-Cli beállítása
 
