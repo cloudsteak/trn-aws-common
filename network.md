@@ -36,15 +36,22 @@ chmod +x scripts/vpn_certificates.sh
 .\scripts\easyrsa_shell.ps1
 ```
 
-2. Miután megnyílik a shell, futtasd le a következő parancsokat a shell-ben:
+2. Inítsd el  EasyRSA-t a következő parancsokkal:
 
-2.1.
+```powershell
+.\EasyRSA-Start.bat
+```
+
+
+3. Miután megnyílik a shell, futtasd le a következő parancsokat a shell-ben:
+
+3.1.
 ```bash
 echo -e "./easyrsa init-pki"
 ./easyrsa init-pki
 ```
 
-2.2.
+3.2.
 ```bash
 echo -e "./easyrsa build-ca nopass"
 ./easyrsa build-ca nopass
@@ -52,7 +59,7 @@ echo -e "./easyrsa build-ca nopass"
 
 Megjegyzés: Add meg a felhasználóneved vagy a cég nevét. (ékezet nékül)
 
-2.3.
+3.3.
 ```bash
 echo -e "./easyrsa build-server-full server nopass"
 ./easyrsa build-server-full server nopas
@@ -61,19 +68,19 @@ Megjegyzés:
 - phrase: `Üresen hagyható`
 - Ha megkérdezi `yes`-el kell válaszolni a kérdésre.
 
-2.4.
+3.4.
 ```bash
 echo -e "./easyrsa build-client-full client1.domain.tld nopass"
 ./easyrsa build-client-full client1.domain.tld nopass
 ```
 Megjegyzés: `yes`-el kell válaszolni a kérdésre.
 
-2.5.
+3.5.
 ```bash
 exit
 ```
 
-3. Ezzel készen vannak a tanúsítványok. Most helyezzük át őket a saját DEsktopunkra. Ehhez futtassuk le a következő parancsot a powershell-ben:
+4. Ezzel készen vannak a tanúsítványok. Most helyezzük át őket a saját DEsktopunkra. Ehhez futtassuk le a következő parancsot a powershell-ben:
 
 ```powershell
 .\scripts\vpn_cert_copy.ps1

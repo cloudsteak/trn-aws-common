@@ -38,6 +38,3 @@ Write-Host "####### Start Shell #######" -ForegroundColor Green
 
 # Set working directory
 Set-Location -Path easyrsa
-
-# Start easyrsa shell
-Start-Process .\EasyRSA-Start.bat -Wait -NoNewWindow
