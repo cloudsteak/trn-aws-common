@@ -275,7 +275,7 @@ A bejövő kapcsolatoknál csak a Publikus subnet-ből engedünk át minden forg
    - Protocol: All
    - Port range: All
    - Source: 20.0.0.0/22
-    - Allow/Deny: ALLOW
+   - Allow/Deny: ALLOW
 6. Save chnages gombra kattintással elmentjük a szabályokat.
 7. Az Outbound Rules fülön kattintsunk az Edit outbound rules gombra.
 8. Add new outbound rule gombra kattintással hozzáadjuk a következő szabályt:
