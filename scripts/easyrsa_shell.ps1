@@ -7,7 +7,7 @@ $file = "EasyRSA-3.1.7-win64.zip"
 
 $releases = "https://api.github.com/repos/$repo/releases"
 
-Write-Host Friss csomag - keres
+Write-Host Keres: Friss csomag
 $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
 
 $download = "https://github.com/$repo/releases/download/$tag/$file"
@@ -16,7 +16,7 @@ $zip = "$name-$tag.zip"
 $dir = "$name-$tag"
 $version = $tag.Replace("v", "")
 
-Write-Host Friss csomag - beszerez
+Write-Host Beszerez: Friss csomag ($tag)
 Invoke-WebRequest $download -Out $zip
 
 Write-Host Unzip

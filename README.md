@@ -1,6 +1,12 @@
 # AWS Cloud tudástár
 AWS Általános segédletek
 
+## AWS Cli
+
+Parancssoros eszköz az AWS kezeléséhez.
+
+[AWS Cli](./cli.md)
+
 ## Virtuális gépek
 
 Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstalk.
@@ -12,7 +18,7 @@ Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstal
 
 VPC, Subnet, Route Table, Security Group, NACL, Internet Gateway, NAT Gateway, VPC Endpoint, VPC Peering, Site-to-Site VPN, Direct Connect és hasonlók.
 
-[Hálózat (Networking)](./networking.md)
+[Hálózat (Networking)](./network.md)
 
 
 ## Kiszolgáló mentes megoldások

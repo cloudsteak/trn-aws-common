@@ -3,9 +3,6 @@
 
 Write-Host "####### Cert folyamat #######" -ForegroundColor Green
 
-# Set working directory
-Set-Location -Path easyrsa
-
 $desktopPath = [System.Environment]::GetFolderPath('Desktop')
 
 $certDir = Read-Host -Prompt 'VPN cert mappa neve'
