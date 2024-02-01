@@ -2,7 +2,6 @@
 
 ## Tartalomjegyzék
 
-- [VPC](#vpc)
 - [VPC létrehozása](#vpc-l%C3%A9trehoz%C3%A1sa)
 - [Subnet](#subnet)
 - [Internet Gateway](#internet-gateway)
@@ -133,7 +132,7 @@ Ez a Route table fogja irányítani a publikus subnet forgalmát. Többek közö
 2. Edit routes gombra kattintással szerkesztjük a Route szabályokat.
 3. Add route gombra kattintással hozzáadjuk a következő szabályt:
    - Destination: 50.10.0.0/16
-    - Target: pcx-xxxxxxxxxxxxxxxxx (Peering Connection)
+   - Target: pcx-xxxxxxxxxxxxxxxxx (Peering Connection)
 4. Add route gombra kattintással hozzáadjuk a következő szabályt:
    - Destination: 0.0.0.0/0
    - Target: igw-xxxxxxxxxxxxxxxxx (Internet Gateway)
@@ -146,7 +145,6 @@ Ez a Route table fogja irányítani a publikus subnet forgalmát. Többek közö
 3. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
    - VPC1-Subnet1-Public-Subnet
 4. Save associations gombra kattintással elmentjük a Subnet hozzárendeléseket.
-
 
 ### 2. VPC1 privát Route Table (RouteTable2)
 
@@ -176,6 +174,122 @@ Ez a Route table fogja irányítani a privát subnet forgalmát. A privát subne
    - VPC1-Subnet2-Private-Subnet
 4. Save associations gombra kattintással elmentjük a Subnet hozzárendeléseket.
 
+### Security Group
+
+A Security Group-ok feladata, hogy a forgalmat szűrjék. Mindkét VPC-hez létrehozunk egy-egy Security Group-ot. A gyakorlás kedvéért minden forgalmat átengedünk. Ezt azonban éles környezetben nem szabad megtenni.
+
+#### 1. VPC1 Security Group (SecurityGroup1)
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSecurityGroup:
+   - Name tag: VPC1-SecurityGroup1
+   - Description: VPC1-SecurityGroup1
+   - VPC: VPC1
+2. Add inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Source: Anywhere IPv4
+3. Add outbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Destination: Anywhere IPv4
+4. Create security group gombra kattintással létrehozzuk a Security Group-ot.
+5. Nyissuk meg a Security Groups fület: https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#SecurityGroups:
+6. Válasszuk ki a VPC1-SecurityGroup1-et.
+7. A Name tag oszlopban találakató ceruza ikonra kattintva szerkesszük a Security Group nevét: VPC1-SecurityGroup1
+
+#### 2. VPC2 Security Group (SecurityGroup2)
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSecurityGroup:
+   - Name tag: VPC2-SecurityGroup2
+   - Description: VPC2-SecurityGroup2
+   - VPC: VPC2
+2. Add inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Source: Anywhere IPv4
+3. Add outbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Destination: Anywhere IPv4
+4. Create security group gombra kattintással létrehozzuk a Security Group-ot.
+5. Nyissuk meg a Security Groups fület: https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#SecurityGroups:
+6. Válasszuk ki a VPC2-SecurityGroup2-et.
+7. A Name tag oszlopban találakató ceruza ikonra kattintva szerkesszük a Security Group nevét: VPC2-SecurityGroup2
+
+### Network Access Control List (NACL)
+
+NACL feladata, hogy a forgalmat szűrje. Mindkét VPC-hez létrehozunk egy-egy NACL-t. A gyakorlás kedvéért minden forgalmat átengedünk. Ezt azonban éles környezetben nem szabad megtenni.
+
+#### 1. VPC1 NACL Public subnet (NACL1)
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateNetworkAcl:
+   - Name tag: VPC1-Subnet1-NACL1
+   - VPC: VPC1
+2. Create network ACL gombra kattintással létrehozzuk a NACL-t.
+3. Az Inbound Rules fülön kattintsunk az Edit inbound rules gombra.
+4. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 300
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Source: 0.0.0.0/0
+   - Allow/Deny: ALLOW
+5. Save chnages gombra kattintással elmentjük a szabályokat.
+6. Az Outbound Rules fülön kattintsunk az Edit outbound rules gombra.
+7. Add new outbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 300
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Destination: 0.0.0.0/0
+   - Allow/Deny: ALLOW
+8. Save chnages gombra kattintással elmentjük a szabályokat.
+9. Subnet associations fülön kattintsunk az Edit subnet associations gombra.
+10. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
+    - VPC1-Subnet1-Public-Subnet
+11. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
+
+#### 2. VPC1 NACL Private subnet (NACL2)
+
+A bejövő kapcsolatoknál csak a Publikus subnet-ből engedünk át minden forgalmat. A kimenő kapcsolatoknál pedig minden forgalmat átengedünk.
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateNetworkAcl:
+   - Name tag: VPC1-Subnet2-NACL2
+   - VPC: VPC1
+2. Create network ACL gombra kattintással létrehozzuk a NACL-t.
+3. Az Inbound Rules fülön kattintsunk az Edit inbound rules gombra.
+4. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 300
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Source: 91.20.30.0/24
+   - Allow/Deny: ALLOW
+5. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 250
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Source: 20.0.0.0/22
+    - Allow/Deny: ALLOW
+6. Save chnages gombra kattintással elmentjük a szabályokat.
+7. Az Outbound Rules fülön kattintsunk az Edit outbound rules gombra.
+8. Add new outbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 300
+   - Type: All traffic
+   - Protocol: All
+   - Port range: All
+   - Destination: 0.0.0.0/0
+   - Allow/Deny: ALLOW
+9. Save chnages gombra kattintással elmentjük a szabályokat.
+10. Subnet associations fülön kattintsunk az Edit subnet associations gombra.
+11. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
+    - VPC1-Subnet2-Private-Subnet
+12. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
 
 ## VPN (Virtual Private Network)
 
