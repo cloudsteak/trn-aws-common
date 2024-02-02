@@ -174,11 +174,40 @@ Ez a Route table fogja irányítani a privát subnet forgalmát. A privát subne
    - VPC1-Subnet2-Private-Subnet
 4. Save associations gombra kattintással elmentjük a Subnet hozzárendeléseket.
 
-### Security Group
+### 3. VPC2 Route Table (RouteTable3)
+
+Ez a Route table fogja irányítani a VPC 2 forgalmát a VPC 1 felé.
+
+**Route Table létrehozás**
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateRouteTable:
+   - Name tag: VPC2-RouteTable3-RouteTable
+   - VPC: VPC2
+2. Create route table gombra kattintással létrehozzuk a Route Table-t.
+
+**Route szabályok hozzáadása**
+
+1. Route table-n belül válasszuk a Routes fület.
+2. Edit routes gombra kattintással szerkesztjük a Route szabályokat.
+3. Add route gombra kattintással hozzáadjuk a következő szabályt:
+   - Destination: 0.0.0.0/0
+   - Target: pcx-xxxxxxxxxxxxxxxxx (Peering Connection)
+4. Save changess gombra kattintással elmentjük a Route szabályokat.
+
+**Subnet hozzárendelése**
+
+1. Route table-n belül válasszuk a Subnet associations fület.
+2. Edit subnet associations gombra kattintással szerkesztjük a Subnet hozzárendeléseket.
+3. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
+   - VPC2-Subnet3-Private-Subnet
+   - VPC2-Subnet4-Private-Subnet
+4. Save associations gombra kattintással elmentjük a Subnet hozzárendeléseket.
+
+## Security Group
 
 A Security Group-ok feladata, hogy a forgalmat szűrjék. Mindkét VPC-hez létrehozunk egy-egy Security Group-ot. A gyakorlás kedvéért minden forgalmat átengedünk. Ezt azonban éles környezetben nem szabad megtenni.
 
-#### 1. VPC1 Security Group (SecurityGroup1)
+### 1. VPC1 Security Group (SecurityGroup1)
 
 1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSecurityGroup:
    - Name tag: VPC1-SecurityGroup1
@@ -199,7 +228,7 @@ A Security Group-ok feladata, hogy a forgalmat szűrjék. Mindkét VPC-hez létr
 6. Válasszuk ki a VPC1-SecurityGroup1-et.
 7. A Name tag oszlopban találakató ceruza ikonra kattintva szerkesszük a Security Group nevét: VPC1-SecurityGroup1
 
-#### 2. VPC2 Security Group (SecurityGroup2)
+### 2. VPC2 Security Group (SecurityGroup2)
 
 1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSecurityGroup:
    - Name tag: VPC2-SecurityGroup2
@@ -220,11 +249,11 @@ A Security Group-ok feladata, hogy a forgalmat szűrjék. Mindkét VPC-hez létr
 6. Válasszuk ki a VPC2-SecurityGroup2-et.
 7. A Name tag oszlopban találakató ceruza ikonra kattintva szerkesszük a Security Group nevét: VPC2-SecurityGroup2
 
-### Network Access Control List (NACL)
+## Network Access Control List (NACL)
 
 NACL feladata, hogy a forgalmat szűrje. Mindkét VPC-hez létrehozunk egy-egy NACL-t. A gyakorlás kedvéért minden forgalmat átengedünk. Ezt azonban éles környezetben nem szabad megtenni.
 
-#### 1. VPC1 NACL Public subnet (NACL1)
+### 1. VPC1 NACL Public subnet (NACL1)
 
 1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateNetworkAcl:
    - Name tag: VPC1-Subnet1-NACL1
@@ -253,9 +282,9 @@ NACL feladata, hogy a forgalmat szűrje. Mindkét VPC-hez létrehozunk egy-egy N
     - VPC1-Subnet1-Public-Subnet
 11. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
 
-#### 2. VPC1 NACL Private subnet (NACL2)
+### 2. VPC1 NACL Private subnet (NACL2)
 
-A bejövő kapcsolatoknál csak a Publikus subnet-ből engedünk át minden forgalmat. A kimenő kapcsolatoknál pedig minden forgalmat átengedünk.
+Ezze lszűrjük a privát subnet forgalmát. Csak a szükséges portokat engedjük át. Ilyen pldául az SSH, HTTP, HTTPS, RDP, stb. Illetve engedélyezzük a magas portokat, hogy az internettel való kommunikáció zavartalan legyen.
 
 1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateNetworkAcl:
    - Name tag: VPC1-Subnet2-NACL2
@@ -264,32 +293,53 @@ A bejövő kapcsolatoknál csak a Publikus subnet-ből engedünk át minden forg
 3. Az Inbound Rules fülön kattintsunk az Edit inbound rules gombra.
 4. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
    - Rule number: 300
-   - Type: All traffic
-   - Protocol: All
+   - Type: Custom TCP
+   - Protocol: TCP (6)
+   - Port range: 10000-65535
+   - Source: 0.0.0.0/0
+   - Allow/Deny: ALLOW
+5. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 310
+   - Type: SSH (22)
+   - Protocol: TCP (6)
+   - Port range: 22
+   - Source: 91.20.30.0/24
+   - Allow/Deny: ALLOW
+6. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 320
+   - Type: HTTP (80)
+   - Protocol: TCP (6)
+   - Port range: 80
+   - Source: 91.20.30.0/24
+   - Allow/Deny: ALLOW
+7. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 330
+   - Type: HTTPS (443)
+   - Protocol: TCP (6)
+   - Port range: 443
+   - Source: 91.20.30.0/24
+   - Allow/Deny: ALLOW
+8. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
+   - Rule number: 340
+   - Type: RDP (3389)
+   - Protocol: TCP (6)
    - Port range: All
    - Source: 91.20.30.0/24
    - Allow/Deny: ALLOW
-5. Add new inbound rule gombra kattintással hozzáadjuk a következő szabályt:
-   - Rule number: 250
-   - Type: All traffic
-   - Protocol: All
-   - Port range: All
-   - Source: 20.0.0.0/22
-   - Allow/Deny: ALLOW
-6. Save chnages gombra kattintással elmentjük a szabályokat.
-7. Az Outbound Rules fülön kattintsunk az Edit outbound rules gombra.
-8. Add new outbound rule gombra kattintással hozzáadjuk a következő szabályt:
+9. Save chnages gombra kattintással elmentjük a szabályokat.
+10. Az Outbound Rules fülön kattintsunk az Edit outbound rules gombra.
+11. Add new outbound rule gombra kattintással hozzáadjuk a következő szabályt:
    - Rule number: 300
    - Type: All traffic
    - Protocol: All
    - Port range: All
    - Destination: 0.0.0.0/0
    - Allow/Deny: ALLOW
-9. Save chnages gombra kattintással elmentjük a szabályokat.
-10. Subnet associations fülön kattintsunk az Edit subnet associations gombra.
-11. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
+12. Save chnages gombra kattintással elmentjük a szabályokat.
+13. Subnet associations fülön kattintsunk az Edit subnet associations gombra.
+14. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
     - VPC1-Subnet2-Private-Subnet
-12. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
+15. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
 
 ## VPN (Virtual Private Network)
 
@@ -429,52 +479,62 @@ Csak akkor szükséges ha szeretnénk naplózni a VPN kapcsolatokat.
 https://eu-central-1.console.aws.amazon.com/vpc/home?region=eu-central-1#ClientVPNEndpoints:
 
 1. Create client VPN endpoint
-   - Name tag: p2s-vpn-01
-   - Client IPv4 CIDR: 10.0.0.0/22
+
+   - Name tag: point-to-site-vpn
+   - Description: Point to Site VPN
+   - Client IPv4 CIDR: 192.168.200.0/22
    - Server certificate ARN a Szerver tanúsítvány ARN-je (Server)
    - Use mutual authentication
    - Client certificate ARN a Kliens tanúsítvány ARN-je (client1.domain.tld)
    - Enable log details on client connections
    - CloudWatch logs log group name: Point-To-Site-VPN
    - CloudWatch logs log stream name: VPN1
-   - TCP
    - Enable split-tunnel (Hogy ne minden forgalom menjen a VPN-en keresztül)
    - VPC ID: A VPC ahová szeretnénk hogx csatlakozzon a VPN
    - Security group IDs: Egyik biztonsági csoport ami a VPC-hez tartozik és amin keresztül szeretnénk hogy a VPN kapcsolatok menjenek.
    - Enable client login banner:
+
    ```
-   Sikeres csatlakozás! Üdvözlünk az AWS VPN felhasználói között. :-)
+   Sikeres csatlakozás!
+
+   Üdvözlünk az AWS VPN felhasználói között. :-)
+
+   Üdv:
+   CloudSteak
    ```
+
 2. Create client VPN endpoint
 3. Amint létrejött a kapcsolat állapota `Pending-associate`. Kattintsunk az azonosítójára (lépjünk bele)
 4. Target network associations részben kattintsunk a `Associate target network`-re
 5. Adjuk hozzá a VPC-t és a hozzá tartozó alhálózatot.
 6. Várjunk kb 15 percet
 7. Authorization rules fül: Add authorization rule
-   - Destination network to enable access: 10.0.0.0/22
-   - Allow access to all users
+
+- Destination network to enable access: 91.20.0.0/16
+- Allow access to all users
+
 8. Add authorization rule
 9. Várjunk pár percet
 10. Download client configuration
 11. Nyissuk meg szerkesztésre a letöltött fájlt (downloaded-client-config) és adjuk hozzá a Szerver és a Kliens tanúsítvány fájlok tartalmát az alábbiak szerint:
 
-    ```bash
-    ...
-    </ca>
+```bash
+...
+</ca>
 
-    <cert>
-    A kliens tanúsítvány tartalma (client1.domain.tld.crt).
-    </cert>
+<cert>
+A kliens tanúsítvány tartalma (client1.domain.tld.crt).
+</cert>
 
-    <key>
-    A Szerver tanúsítvány tartalma (client1.domain.tld.key).
-    </key>
-    ...
+<key>
+A Szerver tanúsítvány tartalma (client1.domain.tld.key).
+</key>
+...
 
-    reneg-sec 0
+reneg-sec 0
 
-    verify-x509-name server name
-    ```
+verify-x509-name server name
+```
 
 ````
 
@@ -541,7 +601,7 @@ Certificate:
 reneg-sec 0
 
 verify-x509-name server name
-````
+```
 
 12. Töltsük le a legújabb AWS VPN programot: [Minden Opeerációs rendszer](https://aws.amazon.com/vpn/client-vpn-download/)
     - [Windows](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/client-vpn-connect-windows.html)
@@ -560,3 +620,4 @@ verify-x509-name server name
 17. Megjelenik az üdvözlő üzenetünk. Sikeresen csatlakoztunk.
 
 ![AWS VPN Profile](./images/aws-vpn-connect.png)
+````
