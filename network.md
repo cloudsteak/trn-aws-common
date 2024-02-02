@@ -538,7 +538,7 @@ verify-x509-name server name
 
 Pl:
 
-```txt
+```bash
 client
 dev tun
 proto udp
