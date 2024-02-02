@@ -1,5 +1,19 @@
+
 # AWS Cloud tudástár
 AWS Általános segédletek
+
+## Tartalomjegyzék
+
+- [Hasznos linkek](#hasznos-linkek) 
+- [AWS Cli](#aws-cli)
+- [Virtuális gépek (Compute)](#virtuális-gépek-compute)
+- [Hálózat (Networking)](#hálózat-networking)
+- [Kiszolgáló nélküli megoldások (Serverless)](#kiszolgáló-nélküli-megoldások-serverless)
+- [Tárolás és fájlok (Storage)](#tárolás-és-fájlok-storage)
+- [Konténerek és Kubernetes (Docker & K8s)](#konténerek-és-kubernetes-docker--k8s)
+
+
+## Hasznos linkek
 
 - Szótár: https://cloudsteak-gmk-shared.s3.eu-central-1.amazonaws.com/all-cloud-glossary.png 
 - AWS szójegyzék: https://docs.aws.amazon.com/general/latest/gr/glos-chap.html 
@@ -12,6 +26,12 @@ AWS Általános segédletek
 - Elastic Beanstalk CLI: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
 - EKS CTL: https://eksctl.io
 
+
+## AWS Cli
+
+Parancssoros eszköz az AWS kezeléséhez.
+
+[AWS Cli](./cli.md)
 
 ## Virtuális gépek
 
