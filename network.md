@@ -536,8 +536,6 @@ reneg-sec 0
 verify-x509-name server name
 ```
 
-````
-
 Pl:
 
 ```txt
