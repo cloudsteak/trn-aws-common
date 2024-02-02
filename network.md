@@ -113,7 +113,8 @@ A VPC-k között létrehozunk egy VPC Peering-et, hogy a két VPC között tudju
 
 Route table feladata, hogy a forgalmat a megfelelő helyre irányítsa.
 
-Nekünk kettő Route Table-re lesz szükségünk. Az egyik a publikus subnet-hez, a másik pedig a privát subnet-hez.
+Kettő Route Table-re lesz szükségünk a VPC1-ben. Az egyik a publikus subnet-hez, a másik pedig a privát subnet-hez.
+A VPC2-höz is létrehozunk egy Route Table-t.
 
 ### 1. VPC1 publikus Route Table (RouteTable1)
 
