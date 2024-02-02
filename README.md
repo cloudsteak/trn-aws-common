@@ -1,12 +1,6 @@
 # AWS Cloud tudástár
 AWS Általános segédletek
 
-## AWS Cli
-
-Parancssoros eszköz az AWS kezeléséhez.
-
-[AWS Cli](./cli.md)
-
 ## Virtuális gépek
 
 Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstalk.
