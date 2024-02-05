@@ -52,7 +52,7 @@ Két VPC-t hozunk létre. Azért, hogy a VPC peerig működését is tudjuk gyak
 ### 2. VPC 1 privát subnet (Subnet2)
 
 1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSubnet
-   - Name tag: VPN1-Subnet2-Private-Subnet
+   - Name tag: VPC1-Subnet2-Private-Subnet
    - VPC: VPC1
    - Availability Zone: eu-central-1b
    - IPv4 subnet CIDR block: 91.20.40.0/24
