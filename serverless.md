@@ -75,8 +75,43 @@ Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami
 
 *** 3. Lambda függvény létrehozása ***
 
+1. Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
+2. `Create a function` gomb
+3. Válasszuk a `Author from scratch` lehetőséget
+4. Function name: `EsemenyvezereltFeltoltes`
+5. Runtime: `Python 3.x`
+6. Kattintsunk a `Create function` gombra
+7. A megjelenő oldalon a `Function code` részben írjuk át a kódot erre:
 
+```python
+import json
 
+def lambda_handler(event, context):
+    print("Lamba függvény vagyok!")
+```
+
+8. Kattintsunk a `Deploy` gombra, majd a `Test` gombra
+9. Válasszuk a `Monitor` fület és kattintsunk a `View CloudWatch logs` gombra
+10. A megnyíló ablakban kattintsunk a Log stream nevére. Itt láthatjuk a függvényünk logjait.
+
+```bash
+...
+2024-....	Lamba függvény vagyok!
+...
+```
+
+*** 4. Lambda és S3 összekapcsolása ***
+
+1. Menjünk vissza az Lambda függvényünkhöz
+2. A `Designer` részben kattintsunk a `Add trigger` gombra
+3. Trigger configuration:
+    - Trigger: `S3`
+    - Bucket: `esemenyvezetett-feltoltes`
+    - Event type: `PUT`
+    - Prefix: ``
+    - Suffix: ``
+    - Enable trigger: `Yes`
+4. Kattintsunk az `Add` gombra
 
 ## Amazon Lightsail
 
