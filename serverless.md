@@ -2,6 +2,8 @@
 
 ## Lambda
 
+### Webalkalmazás BluePrint alapon
+
 Egy alap demó Lamda kapcsán.
 
 1.  Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
@@ -40,6 +42,41 @@ Egy alap demó Lamda kapcsán.
 13. Kattintsunk a `Deploy` gombra, majd frissítsük a böngésző lapot amit a 9-es lépésben nyitottunk.
 
 Habár nem kódoltunk semmit, egy rövid példa volt arra, hogy akár weboldalnak is megfelelő a Lambda
+
+
+## Eseményvezéretl alkalmazás (S3 - Lambda - SNS)
+
+Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami egy SNS témára küld egy üzenetet. Ez egy alapvető felhasználása lehet a Lambda-nak. Ráadásul olyan felhasználási esetet szemléltet, amikor a Lambda függvényeket eseményvezérelt módon használjuk.
+
+*** 1. S3 tároló létrehozása ***
+
+1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a `Create bucket` gombra
+3. Adjunk nevet a tárolónak: `esemenyvezetett-feltoltes`
+4. Kattintsunk a `Create bucket` gombra
+
+*** 2. SNS témája létrehozása ***
+
+1. Nyissuk meg az SNS felületét: https://eu-central-1.console.aws.amazon.com/sns/v3/home
+2. Kattintsunk a `Create topic` gombra
+3. Adjunk meg a fonrtos adatokat
+    - Name: `esemenyvezetett-feltoltes`
+    - Display name: `Eseményvezérelt fájlfeltöltés`
+    - Type: `Standard`
+4. Kattintsunk a `Create topic` gombra
+5. A témánál kattintsunk a `Create subscription` gombra
+6. Válasszuk ki a `Email` lehetőséget a Protocol legördülő menüből
+7. Adjuk meg az email címünket
+8. Kattintsunk a `Create subscription` gombra
+9. A megadott email címre érkezett egy megerősítő email, amit ki kell nyitni és a benne található linkre kattintani
+10. A felugró ablakban kattintsunk a `Confirm subscription` gombra
+11. `Subscription confirmed!`. Ezzel érvényesítettük a feliratkozást a témára.
+
+
+*** 3. Lambda függvény létrehozása ***
+
+
+
 
 ## Amazon Lightsail
 
