@@ -1,5 +1,12 @@
 # Tárolás és fájlok (Storage)
 
+## Tartalomjegyzék
+
+- [S3](#s3)
+  - [Fájlok tárolása nyilvánosan](#fájlok-tárolása-nyilvánosan)
+  - [Verziókezelés](#verziókezelés)
+  - [Fájl megosztása időkorlátozással](#fájl-megosztása-időkorlátozással)
+
 ## S3
 
 ### Fájlok tárolása nyilvánosan
@@ -63,3 +70,25 @@ Létező tároló esetén a következőképpen kapcsolhatjuk be:
 **Verrziókezelés használata (példa fájlok)**
 
 A verziókezelés bekapcsolása után a fájlok módosításakor az új verziók létrejönnek. Hogy Te is könnyedén ellenőrizhesd, találsz az [s3-version](./s3-version/Readme.md) mappában három verziót egy fájlhoz.
+
+A különböző verziókat a következő módon érhetjük el:
+
+1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a már meglévő tároló nevére
+3. Kattintsunk a fájl nevére
+4. A `Versions` fülön láthatjuk a verziókat
+
+### Fájl megosztása időkorlátozással
+
+Ha egy fájlt csak egy bizonyos időszakig szeretnénk elérhetővé tenni, akkor hasznos lehet az S3 által nyújtott időkorlátozás. Ennek neve `Pre-signed URL`.
+
+Az alábbiakban egy példát láthatsz, hogyan hozhatsz létre egy 1 órás időkorlátozott linket egy fájlhoz.
+
+1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a már meglévő tároló nevére
+3. Kattintsunk a fájl nevére
+4. A `Object actions` gombra kattintva válasszuk a `Share with a presigned URL` lehetőséget
+5. A megjelenő ablakban állítsuk be az időkorlátot és kattintsunk a `Create presigned URL` gombra
+6. Ekkor a megosztási link a vágólapra kerül, amit bárhova beilleszthetünk.
+
+![Presigned URL](./images/aws-s3-presigned-url.png)
