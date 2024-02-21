@@ -43,7 +43,7 @@ Egy alap demó Lamda kapcsán.
 
 Habár nem kódoltunk semmit, egy rövid példa volt arra, hogy akár weboldalnak is megfelelő a Lambda
 
-## Eseményvezéretl alkalmazás (S3 - Lambda - SNS)
+## Eseményvezérelt alkalmazás (S3 - Lambda - SNS)
 
 Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami egy SNS témára küld egy üzenetet. Ez egy alapvető felhasználása lehet a Lambda-nak. Ráadásul olyan felhasználási esetet szemléltet, amikor a Lambda függvényeket eseményvezérelt módon használjuk.
 
