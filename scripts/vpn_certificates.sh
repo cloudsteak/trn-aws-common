@@ -25,8 +25,8 @@ echo -e "./easyrsa init-pki"
 echo -e "./easyrsa build-ca nopass"
 ./easyrsa build-ca nopass
 
-echo -e "./easyrsa build-server-full server nopass"
-./easyrsa build-server-full server nopass
+echo -e "./easyrsa --san=DNS:server build-server-full server nopass"
+./easyrsa --san=DNS:server build-server-full server nopass
 
 echo -e "./easyrsa build-client-full client1.domain.tld nopass"
 ./easyrsa build-client-full client1.domain.tld nopass
