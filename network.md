@@ -346,7 +346,7 @@ Ezze lszűrjük a privát subnet forgalmát. Csak a szükséges portokat engedj�
 
 ### A. Linux és MacOS
 
-_Megjegyzés: Windows esetén is tudjuk ezt a módszert használni, ha a WSL-t vagy a Git Bash-t használjuk._
+_Megjegyzés: Windows esetén is tudjuk ezt a módszert használni, ha a WSL-t vagy a Git Bash-t használjuk. (WSL telepítése)[dism.exe /online /enable-feature /featurename:VirtualMachinePlatform](https://github.com/cloudsteak/trn-docker?tab=readme-ov-file#docker-desktop-telepítése) /all /norestart_
 
 ```bash
 chmod +x scripts/vpn_certificates.sh
