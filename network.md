@@ -432,7 +432,7 @@ AWS Cli telepítésének és beállításának lépéseit megtalálod [itt](./cl
 
 ### Tanúsítvány importálás
 
-1. Lépjünk be abba a mappába ahol a tanúsítványok vannak. Pl.: `Desktop\awscert`
+1. Lépjünk be abba a mappába ahol a tanúsítványok vannak. Pl.: `Desktop\vpncert`
 
 2. Szerver tanúsítvány importálás
 
