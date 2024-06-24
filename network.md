@@ -464,8 +464,8 @@ Eredmény:
 
 Az importálás sikerességét az AWS Console-ban is ellenőrizhetjük a AWS Certificate Manager (ACM) szolgáltatásnál. Például:
 
-- a Frankfurt régióban: [AWS ACM](https://eu-central-1.console.aws.amazon.com/acm/home?region=eu-central-1#/certificates/list)
-- a Stockholm régióban: [AWS ACM](https://eu-north-1.console.aws.amazon.com/acm/home?region=eu-north-1#/certificates/list)
+- Frankfurt - eu-central-1 régió: [AWS ACM](https://eu-central-1.console.aws.amazon.com/acm/home?region=eu-central-1#/certificates/list)
+- Stockholm - eu-north-1 régió: [AWS ACM](https://eu-north-1.console.aws.amazon.com/acm/home?region=eu-north-1#/certificates/list)
 
 ### CloudWatch beállítás (Opcionális)
 
