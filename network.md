@@ -346,7 +346,7 @@ Ezze lszűrjük a privát subnet forgalmát. Csak a szükséges portokat engedj�
 
 ### A. Linux és MacOS
 
-_Megjegyzés: Windows esetén is tudjuk ezt a módszert használni, ha a WSL-t vagy a Git Bash-t használjuk._
+_Megjegyzés: Windows esetén is tudjuk ezt a módszert használni, ha a WSL-t vagy a Git Bash-t használjuk. (WSL telepítése)[dism.exe /online /enable-feature /featurename:VirtualMachinePlatform](https://github.com/cloudsteak/trn-docker?tab=readme-ov-file#docker-desktop-telepítése) /all /norestart_
 
 ```bash
 chmod +x scripts/vpn_certificates.sh
@@ -396,7 +396,7 @@ Megjegyzés: Add meg a felhasználóneved vagy a cég nevét. (ékezet nékül)
 3.3.
 
 ```bash
-./easyrsa build-server-full server nopass
+./easyrsa --san=DNS:server build-server-full server nopass
 ```
 
 Megjegyzés:
@@ -432,7 +432,7 @@ AWS Cli telepítésének és beállításának lépéseit megtalálod [itt](./cl
 
 ### Tanúsítvány importálás
 
-1. Lépjünk be abba a mappába ahol a tanúsítványok vannak. Pl.: `Desktop\awscert`
+1. Lépjünk be abba a mappába ahol a tanúsítványok vannak. Pl.: `Desktop\vpncert`
 
 2. Szerver tanúsítvány importálás
 
@@ -461,6 +461,11 @@ Eredmény:
   "CertificateArn": "arn:aws:acm:eu-central-1:xxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 ```
+
+Az importálás sikerességét az AWS Console-ban is ellenőrizhetjük a AWS Certificate Manager (ACM) szolgáltatásnál. Például:
+
+- a Frankfrt régióban: [AWS ACM](https://eu-central-1.console.aws.amazon.com/acm/home?region=eu-central-1#/certificates/list)
+- a Stockholm régióban: [AWS ACM](https://eu-north-1.console.aws.amazon.com/acm/home?region=eu-north-1#/certificates/list)
 
 ### CloudWatch beállítás (Opcionális)
 
@@ -621,4 +626,3 @@ verify-x509-name server name
 17. Megjelenik az üdvözlő üzenetünk. Sikeresen csatlakoztunk.
 
 ![AWS VPN Profile](./images/aws-vpn-connect.png)
-````
