@@ -396,7 +396,7 @@ Megjegyzés: Add meg a felhasználóneved vagy a cég nevét. (ékezet nékül)
 3.3.
 
 ```bash
-./easyrsa build-server-full server nopass
+./easyrsa --san=DNS:server build-server-full server nopass
 ```
 
 Megjegyzés:
@@ -461,6 +461,11 @@ Eredmény:
   "CertificateArn": "arn:aws:acm:eu-central-1:xxxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 ```
+
+Az importálás sikerességét az AWS Console-ban is ellenőrizhetjük a AWS Certificate Manager (ACM) szolgáltatásnál. Például:
+
+- a Frankfúrti régióban: [AWS ACM](https://eu-central-1.console.aws.amazon.com/acm/home?region=eu-central-1#/certificates/list)
+- a Stockholmi régióban: [AWS ACM](https://eu-north-1.console.aws.amazon.com/acm/home?region=eu-north-1#/certificates/list)
 
 ### CloudWatch beállítás (Opcionális)
 
@@ -621,4 +626,3 @@ verify-x509-name server name
 17. Megjelenik az üdvözlő üzenetünk. Sikeresen csatlakoztunk.
 
 ![AWS VPN Profile](./images/aws-vpn-connect.png)
-````
