@@ -1,5 +1,15 @@
 # Virtuális gépek (Compute)
 
+## Tartalomjegyzék
+
+- [EC2 instances (virtuális gépek)](#ec2-instances-virtuális-gépek)
+  - [Linux szerver web kiszolgálóként](#linux-szerver-web-kiszolgálóként)
+- [Elastic Beanstalk](#elastic-beanstalk)
+   - [Beanstalk alkalmazás létrehozása](#beanstalk-alkalmazás-létrehozása)
+   - [Beanstalk alkalmazás ellenőrzése](#beanstalk-alkalmazás-ellenőrzése)
+   - [NodeJS alkalmazás GitHub-ról](#nodejs-alkalmazás-github-ról)
+- [Terheléselosztó (Load Balancer) hibajavítás 1 db subnet esetén](#terheléselosztó-load-balancer)
+
 ## EC2 instances (virtuális gépek)
 
 Néhány hasznos parancs, vagy segédlet.
@@ -150,4 +160,9 @@ Ha korábban [1 db publikus subnet-et hoztunk létre](network.md#subnet), akkor 
 Ez esetben hozzunk létre egy másik publikus subnet-et is. Ennek a lépései:
 
 1. [Egy második publikus subnet létrehozása](network.md#5-vpc-1-második-publikus-subnet-subnet5---terheléselosztóhoz)
-2. 
+2. Majd elvégezzük a [subnet hozzárendelését](network.md#1-vpc1-publikus-route-table-routetable1) a Route Table-hoz
+3. Ezután a [subnetet hozzárendeljük a NACL 1-hez](network.md#1-vpc1-nacl-public-subnet-nacl1) is.
+4. Ezután folytatjuk a terheléselosztó létrehozását és a Network mapping résznél az alábbi subnet-eket választjuk ki:
+   - VPC1-Subnet1-Public-Subnet
+   - VPC1-Subnet5-Public-Subnet (terheléselosztóhoz)
+
