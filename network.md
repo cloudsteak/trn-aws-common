@@ -75,6 +75,15 @@ Két VPC-t hozunk létre. Azért, hogy a VPC peerig működését is tudjuk gyak
    - IPv4 subnet CIDR block: 50.10.60.0/24
 2. Create subnet gombra kattintással létrehozzuk a subnet-et.
 
+### 5. VPC 1 második publikus subnet (Subnet5) - terheléselosztóhoz
+
+1. https://eu-central-1.console.aws.amazon.com/vpcconsole/home?region=eu-central-1#CreateSubnet
+   - Name tag: VPC1-Subnet5-Public-Subnet
+   - VPC: VPC1
+   - Availability Zone: eu-central-1b
+   - IPv4 subnet CIDR block: 91.20.35.0/24
+2. Create subnet gombra kattintással létrehozzuk a subnet-et.
+
 ## Internet Gateway
 
 Internet Gateway-t csak a VPC1-hez csatoljuk.
@@ -145,6 +154,7 @@ Ez a Route table fogja irányítani a publikus subnet forgalmát. Többek közö
 2. Edit subnet associations gombra kattintással szerkesztjük a Subnet hozzárendeléseket.
 3. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
    - VPC1-Subnet1-Public-Subnet
+   - VPC1-Subnet5-Public-Subnet (terheléselosztóhoz)
 4. Save associations gombra kattintással elmentjük a Subnet hozzárendeléseket.
 
 ### 2. VPC1 privát Route Table (RouteTable2)
@@ -280,7 +290,8 @@ NACL feladata, hogy a forgalmat szűrje. Mindkét VPC-hez létrehozunk egy-egy N
 8. Save chnages gombra kattintással elmentjük a szabályokat.
 9. Subnet associations fülön kattintsunk az Edit subnet associations gombra.
 10. Add subnet association gombra kattintással hozzáadjuk a következő subnet-eket:
-    - VPC1-Subnet1-Public-Subnet
+   - VPC1-Subnet1-Public-Subnet
+   - VPC1-Subnet5-Public-Subnet (terheléselosztóhoz)
 11. Save changes gombra kattintással elmentjük a subnet hozzárendeléseket.
 
 ### 2. VPC1 NACL Private subnet (NACL2)

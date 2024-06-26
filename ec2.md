@@ -137,3 +137,14 @@ Két lépésbő áll a folyamatunk:
 A folyamat interaktív és 3-4 perc után látható, hogy mindkét lépés `Succeeded` állapotú lesz. Ekkor a korábbi linkket frissítve a böngészónkben láthatjuk az alkalmazásunkat.
 
 Ha a GitHub oldali kódban módosítunk valamit, akkor az pár perc után megjelenik az alkalmazásunkban.
+
+
+## Terheléselosztó (Load Balancer)
+
+Terheléselosztó létrehozása esetén nem elegendő 1 db subnet-et létrehozni, hanem legalább 2 db-ot kell. Ez a magasrendelkezésreállás (HA) érdekében szükséges. 
+Ha korábban [1 db publikus subnet-et hoztunk létre](network.md#subnet), akkor a következő hibaüzenettel fogunk szembesülni:
+"At least two subnets must be specified."
+
+![aws-minimum-subnet-loadbalancer](images/aws-minimum-subnet-loadbalancer.png)
+
+Ez esetben hozzunk létre egy másik publikus subnet-et is. Ennek a lépéseit a [subnet](network.md#subnet) részben találjuk.
