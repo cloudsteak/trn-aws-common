@@ -147,4 +147,7 @@ Ha korábban [1 db publikus subnet-et hoztunk létre](network.md#subnet), akkor 
 
 ![aws-minimum-subnet-loadbalancer](images/aws-minimum-subnet-loadbalancer.png)
 
-Ez esetben hozzunk létre egy másik publikus subnet-et is. Ennek a lépéseit a [subnet](network.md#subnet) részben találjuk.
+Ez esetben hozzunk létre egy másik publikus subnet-et is. Ennek a lépései:
+
+1. [Egy második publikus subnet létrehozása](network.md#5-vpc-1-második-publikus-subnet-subnet5---terheléselosztóhoz)
+2. 
