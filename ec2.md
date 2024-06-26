@@ -5,9 +5,9 @@
 - [EC2 instances (virtuális gépek)](#ec2-instances-virtuális-gépek)
   - [Linux szerver web kiszolgálóként](#linux-szerver-web-kiszolgálóként)
 - [Elastic Beanstalk](#elastic-beanstalk)
-   - [Beanstalk alkalmazás létrehozása](#beanstalk-alkalmazás-létrehozása)
-   - [Beanstalk alkalmazás ellenőrzése](#beanstalk-alkalmazás-ellenőrzése)
-   - [NodeJS alkalmazás GitHub-ról](#nodejs-alkalmazás-github-ról)
+  - [Beanstalk alkalmazás létrehozása](#beanstalk-alkalmazás-létrehozása)
+  - [Beanstalk alkalmazás ellenőrzése](#beanstalk-alkalmazás-ellenőrzése)
+  - [NodeJS alkalmazás GitHub-ról](#nodejs-alkalmazás-github-ról)
 - [Terheléselosztó (Load Balancer) hibajavítás 1 db subnet esetén](#terheléselosztó-load-balancer)
 
 ## EC2 instances (virtuális gépek)
@@ -135,8 +135,8 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 21. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
 
 ```html
-Success
-Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been created.
+Success Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been
+created.
 ```
 
 Két lépésbő áll a folyamatunk:
@@ -148,10 +148,9 @@ A folyamat interaktív és 3-4 perc után látható, hogy mindkét lépés `Succ
 
 Ha a GitHub oldali kódban módosítunk valamit, akkor az pár perc után megjelenik az alkalmazásunkban.
 
-
 ## Terheléselosztó (Load Balancer)
 
-Terheléselosztó létrehozása esetén nem elegendő 1 db subnet-et létrehozni, hanem legalább 2 db-ot kell. Ez a magasrendelkezésreállás (HA) érdekében szükséges. 
+Terheléselosztó létrehozása esetén nem elegendő 1 db subnet-et létrehozni, hanem legalább 2 db-ot kell. Ez a magasrendelkezésreállás (HA) érdekében szükséges.
 Ha korábban [1 db publikus subnet-et hoztunk létre](network.md#subnet), akkor a következő hibaüzenettel fogunk szembesülni:
 "At least two subnets must be specified."
 
@@ -165,4 +164,8 @@ Ez esetben hozzunk létre egy másik publikus subnet-et is. Ennek a lépései:
 4. Ezután folytatjuk a terheléselosztó létrehozását és a Network mapping résznél az alábbi subnet-eket választjuk ki:
    - VPC1-Subnet1-Public-Subnet
    - VPC1-Subnet5-Public-Subnet (terheléselosztóhoz)
+     ![aws-loadbalancer-network-mapping](images/aws-loadbalancer-network-mapping.png)
 
+Ekkor már a terheléselosztó létrehozása sikeres lesz.
+
+_Megjegyzés: Gyakorláshoz az is megfeleő, ha ilynekor a második subnet-nek, a privát subnet-et választjuk ki. Ez természetesen nem lesz helyen konfiguráció, de a gyakorlás szempontjából megfelelő._
