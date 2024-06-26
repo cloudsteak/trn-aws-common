@@ -37,7 +37,7 @@ Parancssoros eszköz az AWS kezeléséhez.
 ## Virtual Machines
 **Virtuális gépek**
 
-Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstalk.
+Minden ami az AWS virtuálisgépek kapcsán hasznos lehet. EC2, Elastic Beanstalk, Terheléselosztó.
 
 [Virtuális gépek (Compute)](./ec2.md)
 
