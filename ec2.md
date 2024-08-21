@@ -61,7 +61,7 @@ Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 ### Beanstalk alkalmazás létrehozása
 
 1. Nyissuk meg a Beanstalk kezelő felületét: https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home
-2. Katintsunk az [Create Application](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home/create-environment) gombra
+2. Katintsunk az [Create Environment](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/create-environment) gombra
 3. `Web server environment` gomb
 4. Application name: NodeJS WebApp
 5. `Environment name` maradhat, amit a konzol generál
