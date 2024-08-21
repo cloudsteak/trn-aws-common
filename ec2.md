@@ -68,7 +68,7 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 6. `Platform` szekció:
    - Platform type: `Managed platform`
    - Platform: `Node.js`
-   - Platform branch: `Node.js 18`
+   - Platform branch: `Node.js 20`
 7. Application code: `Sample application`
 8. Presets: `Single instance (free tier eligible)`
 9. `Next`
