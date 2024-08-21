@@ -5,6 +5,7 @@
 - [EC2 instances (virtuális gépek)](#ec2-instances-virtuális-gépek)
   - [Linux szerver web kiszolgálóként](#linux-szerver-web-kiszolgálóként)
 - [Elastic Beanstalk](#elastic-beanstalk)
+  - [Előkészület - EC2 instance profile létrehozása](#előkészület---ec2-instance-profile-létrehozása)
   - [Beanstalk alkalmazás létrehozása](#beanstalk-alkalmazás-létrehozása)
   - [Beanstalk alkalmazás ellenőrzése](#beanstalk-alkalmazás-ellenőrzése)
   - [NodeJS alkalmazás GitHub-ról](#nodejs-alkalmazás-github-ról)
