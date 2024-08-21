@@ -66,16 +66,17 @@ Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instan
 1. Lépjünk be az AWS konzolba
 2. Keresőbe írjuk be az IAM szolgáltatást
 3. A bal oldali menüben kattintsunk az "Roles" menüpontra
-4. A `Trusted entity type` lehetőségek közül válasszuk ki az `AWS service` opciót
-5. A `Choose a use case` lehetőségek közül válasszuk ki az `EC2` opciót
-6. Kattintsunk a "Next" gombra
-7. Adjuk hozzá a következő engedélyeket:
+4. Kattintsunk a `Create` gombra
+5. A `Trusted entity type` lehetőségek közül válasszuk ki az `AWS service` opciót
+6. A `Choose a use case` lehetőségek közül válasszuk ki az `EC2` opciót
+7. Kattintsunk a "Next" gombra
+8. Adjuk hozzá a következő engedélyeket:
    - AWSElasticBeanstalkWebTier
    - AWSElasticBeanstalkWorkerTier
    - AWSElasticBeanstalkMulticontainerDocker
-8. Kattintsunk a "Next" gombra
-9. Role name: webalkalmazas-role
-10. Kattintsunk a "Create role" gombra
+9. Kattintsunk a "Next" gombra
+10. Role name: webalkalmazas-role
+11. Kattintsunk a "Create role" gombra
 
 ### Beanstalk alkalmazás létrehozása
 
