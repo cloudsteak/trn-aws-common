@@ -58,6 +58,24 @@ Egy NodeJS alkalmazást fogunk CD folyamattal "telepíteni" Amazon ElasticBeanst
 
 Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 
+### Előkészület - EC2 instance profile létrehozása
+
+Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instance profile-ra, amely engedélyezi az EC2 példányoknak a megfelelő hozzáférését.
+
+1. Lépjünk be az AWS konzolba
+2. Keresőbe írjuk be az IAM szolgáltatást
+3. A bal oldali menüben kattintsunk az "Roles" menüpontra
+4. A `Trusted entity type` lehetőségek közül válasszuk ki az `AWS service` opciót
+5. A `Choose a use case` lehetőségek közül válasszuk ki az `EC2` opciót
+6. Kattintsunk a "Next" gombra
+7. Adjuk hozzá a következő engedélyeket:
+   - AWSElasticBeanstalkWebTier
+   - AWSElasticBeanstalkWorkerTier
+   - AWSElasticBeanstalkMulticontainerDocker
+8. Kattintsunk a "Next" gombra
+9. Role name: webalkalmazas-role
+10. Kattintsunk a "Create role" gombra
+
 ### Beanstalk alkalmazás létrehozása
 
 1. Nyissuk meg a Beanstalk kezelő felületét: https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home
@@ -76,15 +94,11 @@ Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
 11. EC2 Key pair:
     - Ha van már létező kulcs párunk, akkor válasszuk azt
     - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
-12. `Next`
-13. `Virtual Private Cloud (VPC)` részt nem módosítjuk
-14. `Next`
-15. `Configure instance traffic and scaling - optional` részt nem módosítjuk
-16. `Next`
-17. `Configure updates, monitoring, and logging - optional` részt nem módosítjuk
-18. `Next`
-19. `ReviewInfo` oldalon ellenőrizzük az eddig beállított értékeket
-20. `Submit` gombra kattintva elindul a Beanstalk alkalmazásunk létrehozása
+12. EC2 instance profile: 
+    - Instance profile name: webalkalmazas-role
+13. Kattintsunk a "Next" gombra
+14. Kattintsunk a "Skip to review" gombra
+15. Kattintsunk a "Submit" gombra
 
 3-4 perc alatt el is készül az alkalmazásunk
 
