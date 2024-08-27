@@ -5,6 +5,7 @@
 - [EC2 instances (virtuális gépek)](#ec2-instances-virtuális-gépek)
   - [Linux szerver web kiszolgálóként](#linux-szerver-web-kiszolgálóként)
 - [Elastic Beanstalk](#elastic-beanstalk)
+  - [Előkészület - EC2 instance profile létrehozása](#előkészület---ec2-instance-profile-létrehozása)
   - [Beanstalk alkalmazás létrehozása](#beanstalk-alkalmazás-létrehozása)
   - [Beanstalk alkalmazás ellenőrzése](#beanstalk-alkalmazás-ellenőrzése)
   - [NodeJS alkalmazás GitHub-ról](#nodejs-alkalmazás-github-ról)
@@ -36,7 +37,7 @@ yum update -y
 yum install -y httpd.x86_64
 systemctl start httpd.service
 systemctl enable httpd.service
-echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;background-image: url('https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/laptop-gf2f68ed68_1920.jpg?raw=true');background-repeat: no-repeat;background-size: cover; background-position: center;color: whitesmoke;}</style></head><body><h1>Szerver neve: $(hostname)</h1></body></html>" > /var/www/html/index.html
+echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;background-image: url('https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2024-07.jpg?raw=true');background-repeat: no-repeat;background-size: cover; background-position: center;color: white; text-align: center; padding-top: 1%;}</style></head><body><h1>Web:<br>$(hostname)</h1></body></html>" > /var/www/html/index.html
 ```
 
 10. Végül kattintsunk a `Launch instance` gombra
@@ -56,19 +57,38 @@ Success Successfully initiated launch of instance (i-**********)
 
 Egy NodeJS alkalmazást fogunk CD folyamattal "telepíteni" Amazon ElasticBeanstalk-ra
 
-Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
+Példa alkalmazás: https://github.com/cloudsteak/trn-node-demo
+
+### Előkészület - EC2 instance profile létrehozása
+
+Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instance profile-ra, amely engedélyezi az EC2 példányoknak a megfelelő hozzáférését.
+
+1. Lépjünk be az AWS konzolba
+2. Keresőbe írjuk be az IAM szolgáltatást
+3. A bal oldali menüben kattintsunk az "Roles" menüpontra
+4. Kattintsunk a `Create` gombra
+5. A `Trusted entity type` lehetőségek közül válasszuk ki az `AWS service` opciót
+6. A `Choose a use case` lehetőségek közül válasszuk ki az `EC2` opciót
+7. Kattintsunk a "Next" gombra
+8. Adjuk hozzá a következő engedélyeket:
+   - AWSElasticBeanstalkWebTier
+   - AWSElasticBeanstalkWorkerTier
+   - AWSElasticBeanstalkMulticontainerDocker
+9. Kattintsunk a "Next" gombra
+10. Role name: webalkalmazas-role
+11. Kattintsunk a "Create role" gombra
 
 ### Beanstalk alkalmazás létrehozása
 
 1. Nyissuk meg a Beanstalk kezelő felületét: https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home
-2. Katintsunk az [Create Application](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home/create-environment) gombra
+2. Katintsunk az [Create Environment](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/create-environment) gombra
 3. `Web server environment` gomb
 4. Application name: NodeJS WebApp
 5. `Environment name` maradhat, amit a konzol generál
 6. `Platform` szekció:
    - Platform type: `Managed platform`
    - Platform: `Node.js`
-   - Platform branch: `Node.js 18`
+   - Platform branch: `Node.js 20`
 7. Application code: `Sample application`
 8. Presets: `Single instance (free tier eligible)`
 9. `Next`
@@ -76,15 +96,11 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 11. EC2 Key pair:
     - Ha van már létező kulcs párunk, akkor válasszuk azt
     - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
-12. `Next`
-13. `Virtual Private Cloud (VPC)` részt nem módosítjuk
-14. `Next`
-15. `Configure instance traffic and scaling - optional` részt nem módosítjuk
-16. `Next`
-17. `Configure updates, monitoring, and logging - optional` részt nem módosítjuk
-18. `Next`
-19. `ReviewInfo` oldalon ellenőrizzük az eddig beállított értékeket
-20. `Submit` gombra kattintva elindul a Beanstalk alkalmazásunk létrehozása
+12. EC2 instance profile: 
+    - Instance profile name: webalkalmazas-role
+13. Kattintsunk a "Next" gombra
+14. Kattintsunk a "Skip to review" gombra
+15. Kattintsunk a "Submit" gombra
 
 3-4 perc alatt el is készül az alkalmazásunk
 
@@ -98,41 +114,43 @@ Példa alkalmazás: https://github.com/cloudsteak/react-demo-n18
 2. AWS konzolon nyissuk meg a [CodePipeline](https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines) kezelőfelületét
 3. [Create pipeline](https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipeline/new)
 4. Pipeline name: `Beanstalk-WebApp-Pipeline`
-5. Service role: `New service role`
-6. `Next`
-7. `Source` szekcióban, Sourve Provider: `GitHub (Version 2)`
-8. `Connection`
-
+5. `Execution mode`-nál válasszuk a `Queued (Pipeline type V2 required)` lehetőséget
+6. Service role: `New service role`
+7. `Next`
+8. `Source` szekcióban, Sourve Provider: `GitHub (Version 2)`
+9. `Connection`
    - Ha van létező kapcsolatunk, használjuk azt
    - Ha nincs létező kapcsolatunk, akkor kattintsunk a `Connect to GitHub` gombra
 
-     8.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
+     9.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
 
-     8.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
+     9.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
 
-     8.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
+     9.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
 
-     8.4. `Connect`
+     9.4. `Connect`
 
-     8.5. Alábbi zöld hátterű üzenetet kell látnunk:
+     9.5. Alábbi zöld hátterű üzenetet kell látnunk:
 
      ```html
      Ready to connect Your GitHub connection is ready for use.
      ```
 
 9. `Repository name` mezőnál válasszuk azt ahol a kódunk található
-10. Branch name: `main`
-11. `Next`
-12. `Build - optional` oldalon semmit sem változtatunk
-13. `Skip build stage`, majd `Skip`
-14. Deploy provider: `AWS Elactik Beanstalk`
-15. `Region` értéke, ahol a Beanstalk alkalmazásunk található
-16. Application name: `NodeJS WebApp`
-17. Environment name: `NodeJSWebApp-env`
-18. `Next`
-19. `Review` oldalon ellenőrizzük az eddig beállított értékeket
-20. `Create pipeline` gombra kattintva elindul a automatizáció létrehozása és az alkalmazás telepítése GitHub-ról
-21. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
+10. `Default branch` name: `main`
+11. `Trigger type`: `No filter`
+12. `Next`
+13. `Build - optional` oldalon semmit sem változtatunk
+14. `Skip build stage`, majd `Skip`
+15. Deploy provider: `AWS Elactik Beanstalk`
+16. `Region` értéke, ahol a Beanstalk alkalmazásunk található
+17. `Input artifacts` maradhat a `SourceArtifact`
+18. Application name: `NodeJS WebApp`
+19. Environment name: `NodeJSWebApp-env`
+20. `Next`
+21. `Review` oldalon ellenőrizzük az eddig beállított értékeket
+22. `Create pipeline` gombra kattintva elindul a automatizáció létrehozása és az alkalmazás telepítése GitHub-ról
+23. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
 
 ```html
 Success Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been
