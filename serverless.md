@@ -47,7 +47,7 @@ Habár nem kódoltunk semmit, egy rövid példa volt arra, hogy akár weboldalna
 
 Ebben a példában csak az S3 bucket-be feltöltött fájlok nevét és típusát íratjuk ki a naplóbejegyzésben.
 
-**_ 1. S3 tároló létrehozása _**
+**1. S3 tároló létrehozása**
 
 1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
 2. Kattintsunk a `Create bucket` gombra
@@ -55,7 +55,7 @@ Ebben a példában csak az S3 bucket-be feltöltött fájlok nevét és típusá
 4. Kattintsunk a `Create bucket` gombra
 
 
-**_ 2. Lambda függvény létrehozása _**
+**2. Lambda függvény létrehozása**
 
 1. Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
 2. `Create a function` gomb
@@ -100,7 +100,7 @@ def lambda_handler(event, context):
 12. Válasszuk a `Monitor` fület és kattintsunk a `View CloudWatch logs` gombra
 13. A megnyíló ablakban kattintsunk a `Log stream` nevére. Itt láthatjuk a függvényünk logjait.
 
-**_ 3. Lambda és S3 összekapcsolása _**
+**3. Lambda és S3 összekapcsolása**
 
 1. Menjünk vissza az Lambda függvényünkhöz
 2. A `Designer` részben kattintsunk a `Add trigger` gombra
@@ -113,7 +113,7 @@ def lambda_handler(event, context):
    - Enable trigger: `Yes`
 4. Kattintsunk az `Add` gombra
 
-**_ 4. Tesztelés _**
+**4. Tesztelés**
 
 1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
 2. Kattintsunk a `esemfajlenyvezetett-feltoltes` tárolóra
@@ -127,14 +127,14 @@ def lambda_handler(event, context):
 
 Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami egy SNS témára küld egy üzenetet. Ez egy alapvető felhasználása lehet a Lambda-nak. Ráadásul olyan felhasználási esetet szemléltet, amikor a Lambda függvényeket eseményvezérelt módon használjuk.
 
-**_ 1. S3 tároló létrehozása _**
+**1. S3 tároló létrehozása**
 
 1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
 2. Kattintsunk a `Create bucket` gombra
 3. Adjunk nevet a tárolónak: `esemenyvezetett-feltoltes`
 4. Kattintsunk a `Create bucket` gombra
 
-**_ 2. IAM Role létrehozása _**
+**2. IAM Role létrehozása**
 
 1. Nyissuk meg az IAM felületét: https://console.aws.amazon.com/iam/home
 2. A bal oldali menüben kattintsunk a `Roles` menüpontra
@@ -150,7 +150,7 @@ Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami
 8. Role name: `EsemenyvezereltFeltoltesRole`
 9. Kattintsunk a `Create role` gombra
 
-**_ 3. SNS témája létrehozása _**
+**3. SNS témája létrehozása**
 
 1. Nyissuk meg az SNS felületét: https://eu-central-1.console.aws.amazon.com/sns/v3/home
 2. Kattintsunk a `Create topic` gombra
@@ -167,7 +167,7 @@ Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami
 10. A felugró ablakban kattintsunk a `Confirm subscription` gombra
 11. `Subscription confirmed!`. Ezzel érvényesítettük a feliratkozást a témára.
 
-**_ 4. Lambda függvény létrehozása _**
+**4. Lambda függvény létrehozása**
 
 1. Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
 2. `Create a function` gomb
@@ -197,7 +197,7 @@ def lambda_handler(event, context):
 ...
 ```
 
-**_ 5. Lambda és S3 összekapcsolása _**
+**5. Lambda és S3 összekapcsolása**
 
 1. Menjünk vissza az Lambda függvényünkhöz
 2. A `Designer` részben kattintsunk a `Add trigger` gombra
@@ -210,7 +210,7 @@ def lambda_handler(event, context):
    - Enable trigger: `Yes`
 4. Kattintsunk az `Add` gombra
 
-**_ 6. Lambda és SNS összekapcsolása _**
+**6. Lambda és SNS összekapcsolása**
 
 1. Menjünk vissza az Lambda függvényünkhöz
 2. A `Designer` részben kattintsunk a `Add destination` gombra
@@ -221,7 +221,7 @@ def lambda_handler(event, context):
    - Destination ARN: `esemenyvezetett-feltoltes`
 4. Kattintsunk az `Save` gombra
 
-**_ 7. Python kód _**
+**7. Python kód**
 
 Amint ezzel végeztünk, módosítsuk a Lamba függvémyünk kódját.
 
@@ -261,7 +261,7 @@ _A kódban a `TargetArn`-t ki kell cserélni a létrehozott SNS témára_
 
 2. Kattintsunk a `Deploy` gombra
 
-**_ 8. Tesztelés _**
+**8. Tesztelés**
 
 1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
 2. Kattintsunk a `esemenyvezetett-feltoltes` tárolóra
