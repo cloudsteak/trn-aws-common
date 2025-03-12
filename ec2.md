@@ -88,7 +88,7 @@ Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instan
 6. `Platform` szekció:
    - Platform type: `Managed platform`
    - Platform: `Node.js`
-   - Platform branch: `Node.js 20`
+   - Platform branch: `Node.js 22`
 7. Application code: `Sample application`
 8. Presets: `Single instance (free tier eligible)`
 9. `Next`
