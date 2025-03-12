@@ -23,7 +23,7 @@ Néhány hasznos parancs, vagy segédlet.
 2. Kattintsunk a [`Lunch instance`](https://eu-central-1.console.aws.amazon.com/ec2/home#LaunchInstanceWizard:) gombra
 3. Name: AWS-Web
 4. Amazom Machine Image: Amazon Linux
-5. Instance type: t2.micro
+5. Instance type: t3.micro
 6. Key pair name:
    - Ha van már létező kulcs párunk, akkor válasszuk azt
    - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
@@ -37,7 +37,7 @@ yum update -y
 yum install -y httpd.x86_64
 systemctl start httpd.service
 systemctl enable httpd.service
-echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;background-image: url('https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2024-07.jpg?raw=true');background-repeat: no-repeat;background-size: cover; background-position: center;color: white; text-align: center; padding-top: 1%;}</style></head><body><h1>Web:<br>$(hostname)</h1></body></html>" > /var/www/html/index.html
+echo "<html><head><style>body{font-family: Verdana, Geneva, Tahoma, sans-serif;background-image: url('https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2025-01.jpeg?raw=true');background-repeat: no-repeat;background-size: cover; background-position: center;color: white; text-align: center; padding-top: 1%;}</style></head><body><h1>Web:<br>$(hostname)</h1></body></html>" > /var/www/html/index.html
 ```
 
 10. Végül kattintsunk a `Launch instance` gombra
@@ -88,7 +88,7 @@ Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instan
 6. `Platform` szekció:
    - Platform type: `Managed platform`
    - Platform: `Node.js`
-   - Platform branch: `Node.js 20`
+   - Platform branch: `Node.js 22`
 7. Application code: `Sample application`
 8. Presets: `Single instance (free tier eligible)`
 9. `Next`
@@ -113,44 +113,45 @@ Elastic Beanstalk környezet létrehozásához szükségünk lesz egy EC2 instan
 1. Jelentkezzünk be a [GitHub](https://github.com) fiókunkba
 2. AWS konzolon nyissuk meg a [CodePipeline](https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipelines) kezelőfelületét
 3. [Create pipeline](https://eu-central-1.console.aws.amazon.com/codesuite/codepipeline/pipeline/new)
-4. Pipeline name: `Beanstalk-WebApp-Pipeline`
-5. `Execution mode`-nál válasszuk a `Queued (Pipeline type V2 required)` lehetőséget
-6. Service role: `New service role`
-7. `Next`
-8. `Source` szekcióban, Sourve Provider: `GitHub (Version 2)`
-9. `Connection`
+4. Choose creation option: `Build Custom pipeline`
+5. Pipeline name: `Beanstalk-WebApp-Pipeline`
+6. `Execution mode`-nál válasszuk a `Queued (Pipeline type V2 required)` lehetőséget
+7. Service role: `New service role` (MentorKlub-Pipeline-role)
+8. `Next`
+9. `Source` szekcióban, Sourve Provider: `GitHub (via GitHub App)`
+10. `Connection`
    - Ha van létező kapcsolatunk, használjuk azt
    - Ha nincs létező kapcsolatunk, akkor kattintsunk a `Connect to GitHub` gombra
 
-     9.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
+     10.1. Felugró ablakban adjuk meg a kapcsolat nevét a `Connection name` mezőben: `github.com`
 
-     9.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
+     10.2. `GitHub Apps` esetén kattintsunk az `Install application` gombra
 
-     9.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
+     10.3. Válasszuk a megfelelő GitHub organization-t. Majd az olal alján kattintsunk a `Save` gombra, hogy összekapcsoljuk az AWS-t és a GitHub-ot
 
-     9.4. `Connect`
+     10.4. `Connect`
 
-     9.5. Alábbi zöld hátterű üzenetet kell látnunk:
+     10.5. Alábbi zöld hátterű üzenetet kell látnunk:
 
      ```html
      Ready to connect Your GitHub connection is ready for use.
      ```
 
-9. `Repository name` mezőnál válasszuk azt ahol a kódunk található
-10. `Default branch` name: `main`
-11. `Trigger type`: `No filter`
-12. `Next`
-13. `Build - optional` oldalon semmit sem változtatunk
-14. `Skip build stage`, majd `Skip`
-15. Deploy provider: `AWS Elactik Beanstalk`
-16. `Region` értéke, ahol a Beanstalk alkalmazásunk található
-17. `Input artifacts` maradhat a `SourceArtifact`
-18. Application name: `NodeJS WebApp`
-19. Environment name: `NodeJSWebApp-env`
-20. `Next`
-21. `Review` oldalon ellenőrizzük az eddig beállított értékeket
-22. `Create pipeline` gombra kattintva elindul a automatizáció létrehozása és az alkalmazás telepítése GitHub-ról
-23. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
+11. `Repository name` mezőnál válasszuk azt ahol a kódunk található
+12. `Default branch` name: `main`
+13. Webhooks events. Jelöld be a `Start your pipeline on push and pull request events.` opciót
+14. `Next`
+15. `Build - optional` oldalon semmit sem változtatunk. `Skip build stage`, majd `Skip`
+16. `Test` oldalon semmit sem változtatunk. `Skip test stage`, majd `Skip`
+17. Deploy provider: `AWS Elactik Beanstalk`
+18. `Region` értéke, ahol a Beanstalk alkalmazásunk található
+19. `Input artifacts` maradhat a `SourceArtifact`
+20. Application name: `NodeJS WebApp`
+21. Environment name: `NodeJSWebApp-env`
+22. `Next`
+23. `Review` oldalon ellenőrizzük az eddig beállított értékeket
+24. `Create pipeline` gombra kattintva elindul a automatizáció létrehozása és az alkalmazás telepítése GitHub-ról
+25. Ha az alábbi üzenete tlátjuk, minden rendben és alkalmazásunk már CD folyamattal települ a Beanstalk-ra:
 
 ```html
 Success Congratulations! The pipeline Beanstalk-WebApp-Pipeline has been

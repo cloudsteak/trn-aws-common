@@ -3,3 +3,4 @@ easyrsa
 
 
 .DS_Store
+.vscode/settings.json
