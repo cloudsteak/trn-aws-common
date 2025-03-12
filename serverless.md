@@ -25,7 +25,7 @@ Egy alap demó Lamda kapcsán.
     <style>
       body {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background-image: url("https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2024-07.jpg?raw=true");
+        background-image: url("https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2025-01.jpeg?raw=true");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
