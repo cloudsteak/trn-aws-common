@@ -23,7 +23,7 @@ Néhány hasznos parancs, vagy segédlet.
 2. Kattintsunk a [`Lunch instance`](https://eu-central-1.console.aws.amazon.com/ec2/home#LaunchInstanceWizard:) gombra
 3. Name: AWS-Web
 4. Amazom Machine Image: Amazon Linux
-5. Instance type: t2.micro
+5. Instance type: t3.micro
 6. Key pair name:
    - Ha van már létező kulcs párunk, akkor válasszuk azt
    - Ha még nincs, akkor kattintsunk a `Create new key pair` linkre
