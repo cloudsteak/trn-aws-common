@@ -71,3 +71,10 @@ S3 tároló
 EKS cluster és ECR
 
 [Konténerek és Kubernetes (Docker & K8s)](./containers.md)
+
+## AI
+**Mesterséges intelligencia**
+
+AWS AI/ML szolgáltatások
+
+[AWS AI/ML](./ai.md)
