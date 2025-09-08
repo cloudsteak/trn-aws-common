@@ -1,5 +1,32 @@
 # Konténerek és Kubernetes (Docker & K8s)
 
+## App Runner
+
+Az App Runner egy teljesen felügyelt szolgáltatás, amely lehetővé teszi a fejlesztők számára, hogy gyorsan és egyszerűen telepítsenek konténerizált webalkalmazásokat és API-kat anélkül, hogy kezelniük kellene az infrastruktúrát. Az App Runner automatikusan kezeli a skálázást, a terheléselosztást és a biztonsági frissítéseket, így a fejlesztők a kódjukra koncentrálhatnak.
+
+### Példa alkalmazás
+
+Az Amazon ECR Public Gallery-ból fogunk egy egyszerű alkalmazást telepíteni. Pl. Nginx webszerver vagy Apache
+
+1. Nyissuk meg az App Runner kezelő felületét: https://eu-central-1.console.aws.amazon.com/apprunner/home
+2. Kattintsunk a `Create an App Runner service` gombra
+3. `Source` szekcióban válasszuk a `Container registry` lehetős
+4. `Container registry` szekcióban válasszuk a `Public ECR image` lehetőséget
+5. `Image identifier` mezőbe írjuk be a következőt: `public.ecr.aws/nginx/nginx:latest`
+6. `Next` gomb
+7. `Service name`: nginx-webszerver
+8. `Instance configuration` szekcióban:
+   - `vCPU`: 0.25
+   - `Memory`: 0.5 GB
+9. `Auto scaling` szekcióban hagyjuk az alapértelmezett értékeket
+10. `Next` gomb
+11. `Service settings` szekcióban hagyjuk az alapértelmezett értékeket
+12. `Next` gomb
+13. `Review` szekcióban ellenőrizzük az adatokat
+14. `Create & deploy` gomb
+15. Néhány perc múlva elkészül a szolgáltatásunk
+
+
 ## Kubernetes cluster (EKS) létrehozása EKSCTL-el
 
 ### EKSCTL Telepítése
