@@ -45,7 +45,61 @@ Egy alap demó Lamda kapcsán.
 
 Habár nem kódoltunk semmit, egy rövid példa volt arra, hogy akár weboldalnak is megfelelő a Lambda
 
-## Eseményvezérelt alkalmazs (S3 - Lambda)
+### Gyors S3 + Lambda + CloudWatch példa
+Egy egyszerű példa arra, hogyan lehet egy S3 tárolóba feltöltött fájlok alapján egy Lambda függvényt futtatni, amelynek a naplózását a CloudWatch-on keresztül érhetjük el. (IAM role-t automatikusan létrehozza a rendszer)
+
+**1. S3 tároló létrehozása**
+1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a `Create bucket` gombra
+3. Adjunk egyedi nevet a tárolónak: `feltoltott-fajlok`
+4. Kattintsunk a `Create bucket` gombra
+
+**2. Lambda függvény létrehozása**
+1. Nyissuk meg az Lambda dashboard-ot: https://eu-central-1.console.aws.amazon.com/lambda/home
+2. `Create a function` gomb
+3. Válasszuk a `Author from scratch` lehetőséget
+4. Function name: `S3FajlFeltoltes`
+5. Runtime: `Python 3.13`
+6. Permissions → `Change default execution role` 
+7. Execution role → `Create a new role with basic Lambda permissions`
+8. Create function gomb
+9. A megjelenő oldalon a `Function code` részben írjuk át a kódot erre:
+```python
+import json
+
+def lambda_handler(event, context):
+    for record in event['Records']:
+        bucket = record['s3']['bucket']['name']
+        key = record['s3']['object']['key']
+        print(f"Új fájl érkezett: {bucket}/{key}")
+    return {"statusCode": 200}
+```
+10. Kattintsunk a `Deploy` gombra
+
+**3. Lambda és S3 összekapcsolása**
+1. Menjünk vissza az Lambda függvényünkhöz
+2. A `Designer` részben kattintsunk a `Add trigger` gombra
+3. Trigger configuration:
+    - Trigger: `S3`
+    - Bucket: `feltoltott-fajlok`
+    - Event type: `PUT` vagy `All object create events`
+    - Prefix: ``
+    - Suffix: ``
+    - Enable trigger: `Yes`
+4. Kattintsunk az `Add` gombra
+
+**4. Tesztelés**
+1. Nyissuk meg az S3 felületét: https://s3.console.aws
+.amazon.com/s3/home
+2. Kattintsunk a `feltoltott-fajlok` tárolóra
+3. Kattintsunk a `Upload` gombra
+4. Válasszunk ki egy fájlt és kattintsunk az `Upload` gombra
+5. Menjünk vissza az Lambda függvényünkhöz
+6. Válasszuk a `Monitor` fület és kattintsunk a `View CloudWatch logs` gombra
+7. A megnyíló ablakban kattintsunk a Log stream nevére. Itt láthatjuk a futás eredményét.
+
+
+### Eseményvezérelt alkalmazás (S3 - Lambda)
 
 Ebben a példában csak az S3 bucket-be feltöltött fájlok nevét és típusát íratjuk ki a naplóbejegyzésben.
 
@@ -125,7 +179,7 @@ def lambda_handler(event, context):
 
 
 
-## Eseményvezérelt alkalmazás (S3 - Lambda - SNS)
+### Eseményvezérelt alkalmazás (S3 - Lambda - SNS)
 
 Ebben a megoldásban egy fájl feltöltésekor egy Lambda függvény fut le, ami egy SNS témára küld egy üzenetet. Ez egy alapvető felhasználása lehet a Lambda-nak. Ráadásul olyan felhasználási esetet szemléltet, amikor a Lambda függvényeket eseményvezérelt módon használjuk.
 
