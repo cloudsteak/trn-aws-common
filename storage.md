@@ -6,6 +6,7 @@
   - [Fájlok tárolása nyilvánosan](#fájlok-tárolása-nyilvánosan)
   - [Verziókezelés](#verziókezelés)
   - [Fájl megosztása időkorlátozással](#fájl-megosztása-időkorlátozással)
+  - [Statikus weboldal fájlok tárolására](#statikus-weboldal-fájlok-tárolására)
 
 ## S3
 
@@ -92,3 +93,73 @@ Az alábbiakban egy példát láthatsz, hogyan hozhatsz létre egy 1 órás idő
 6. Ekkor a megosztási link a vágólapra kerül, amit bárhova beilleszthetünk.
 
 ![Presigned URL](./images/aws-s3-presigned-url.png)
+
+
+### Statikus weboldal fájlok tárolására
+
+Az S3 alkalmas egyszerű statikus weboldalak kiszolgálására (HTML, CSS, JS). Ebben a példában a repóban található minta fájlokat fogjuk használni:
+
+- `files/s3-index.html`
+- `files/s3-error.html`
+
+**1. S3 tároló létrehozása**
+
+1. Nyissuk meg az S3 felületét: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a `Create bucket` gombra
+3. Bucket name: `statikus-weboldal` (vagy egyedi név)
+4. `Block Public Access settings for this bucket` részben vegyük ki a pipát a `Block all public access` jelölőnégyzetből
+5. Fogadjuk el a figyelmeztetést az `I acknowledge...` jelölőnégyzet bepipálásával
+6. Kattintsunk a `Create bucket` gombra
+
+**2. Fájlok feltöltése**
+
+1. Lépjünk be a létrehozott bucket-be
+2. Kattintsunk az `Upload` gombra
+3. Töltsük fel a következő fájlokat:
+   - `files/s3-index.html` (ezt nevezzük át `index.html`-re)
+   - `files/s3-error.html` (ezt nevezzük át `error.html`-re)
+4. Kattintsunk az `Upload` gombra
+
+**3. Statikus weboldal hosztolás bekapcsolása**
+
+1. A bucket-ben nyissuk meg a `Properties` fület
+2. Görgessünk a `Static website hosting` részhez
+3. Kattintsunk az `Edit` gombra
+4. `Enable` kiválasztása
+5. `Hosting type`: `Host a static website`
+6. `Index document`: `index.html`
+7. `Error document`: `error.html`
+8. Kattintsunk a `Save changes` gombra
+
+**4. Bucket policy beállítása nyilvános olvasásra**
+
+1. Nyissuk meg a `Permissions` fület
+2. A `Bucket policy` résznél kattintsunk az `Edit` gombra
+3. Illesszük be az alábbi policy-t (a bucket nevet cseréljük ki a sajátunkra):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadForStaticWebsite",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::statikus-weboldal/*"
+    }
+  ]
+}
+```
+
+4. Kattintsunk a `Save changes` gombra
+
+**5. Tesztelés**
+
+1. Menjünk vissza a `Properties` fülre
+2. A `Static website hosting` résznél másoljuk ki a `Bucket website endpoint` URL-t
+3. Nyissuk meg böngészőben: az `index.html` tartalma jelenik meg
+4. Próbáljunk meg egy nem létező útvonalat (pl. `/nem-letezik`), ilyenkor az `error.html` oldal töltődik be
+
+_Megjegyzés:_ S3 static website endpoint HTTP-alapú. HTTPS-hez tipikusan CloudFront + ACM tanúsítvány használata javasolt.
+
