@@ -4,6 +4,7 @@
 
 - [S3](#s3)
   - [Fájlok tárolása nyilvánosan](#fájlok-tárolása-nyilvánosan)
+  - [EC2 hozzáférés engedélyezése bucket-hez IAM role-al](#ec2-hozzáférés-engedélyezése-bucket-hez-iam-role-al)
   - [Verziókezelés](#verziókezelés)
   - [Fájl megosztása időkorlátozással](#fájl-megosztása-időkorlátozással)
   - [Statikus weboldal fájlok tárolására](#statikus-weboldal-fájlok-tárolására)
@@ -45,6 +46,129 @@ Vannak olyan helyzetek, hogy mindenki számára elérhető módon szeretnénk t�
 10. Próbáljuk ki!
 11. Menjünk az `Objects` fülre és töltsünk fel egy kép fájlt
 12. Ha feltöltöttük a képet, akkor kattintsunk a nevére. Az új ablakban keressük meg az `Object URL` részt és másoljuk ki az értékét. Ezzel a linkkel bárki megnyithatja a képet.
+
+### EC2 hozzáférés engedélyezése bucket-hez IAM role-al
+
+Ha egy EC2 instance-nek a környező S3 buckethez szeretnénk hozzáférést adni, akkor nem kell hozzáférési kulcsot (access key) a VM-re tenni. A biztonságos megoldás az IAM role használata.
+
+A működési elv:
+
+- az EC2 instance egy IAM role-t kap meg
+- a role rendelkezik az S3 buckethez szükséges engedélyekkel
+- a virtuális gép a metadatszervizből automatikusan kapja az ideiglenes AWS hitelesítő adatokat
+- az alkalmazás ezekkel dolgozik, anélkül hogy titkos kulcsok lennének a gépen
+
+#### 1. Bucket létrehozása
+
+1. Nyissuk meg az S3 konzolt: https://s3.console.aws.amazon.com/s3/home
+2. Kattintsunk a `Create bucket` gombra
+3. Adjunk nevet a tárolónak, például: `ec2-s3-read-bucket`
+4. Kattintsunk a `Create bucket` gombra
+
+#### 2. IAM role létrehozása
+
+1. Nyissuk meg az IAM konzolt: https://console.aws.amazon.com/iam/
+2. Menjünk a `Roles` menüpontra
+3. Kattintsunk a `Create role` gombra
+4. Válasszuk az `AWS service` kategóriát
+5. Válasszuk az `EC2` szolgáltatást
+6. Kattintsunk a `Next` gombra
+7. Adjuk hozzá a role-hoz a szükséges policy-t
+
+A legegyszerűbb mód a beépített `AmazonS3ReadOnlyAccess` policy használata, ha csak olvasási hozzáférés kell.
+
+Ha saját szabályokat szeretnénk megadni, akkor az inline policy így nézhet ki:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::ec2-s3-read-bucket",
+        "arn:aws:s3:::ec2-s3-read-bucket/*"
+      ]
+    }
+  ]
+}
+```
+
+A role létrehozásakor a trust policy automatikusan tartalmazni fogja az EC2 szolgáltatást:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+#### 3. Role hozzákapcsolása az EC2 instance-hez
+
+1. Menjünk az EC2 felületre: https://console.aws.amazon.com/ec2/
+2. Jelöljük ki a kívánt EC2 instance-et
+3. Kattintsunk a `Actions` menüpontra
+4. Válasszuk a `Security` → `Modify IAM role` lehetőséget
+5. Válasszuk ki a korábban létrehozott role-t
+6. Kattintsunk a `Save` gombra
+
+Ezután az EC2 instance automatikusan kap ideiglenes AWS hitelesítő adatokat a role-ból.
+
+#### 4. Bucket policy beállítása (ha szükséges)
+
+Ha a bucketet a role által hozzáférhetővé akarjuk tenni, akkor a bucket `Permissions` → `Bucket policy` részén hozzáadhatunk egy engedélyt a role ARN-re.
+
+Példa:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowEC2RoleReadAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<ACCOUNT_ID>:role/ec2-s3-read-role"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::ec2-s3-read-bucket",
+        "arn:aws:s3:::ec2-s3-read-bucket/*"
+      ]
+    }
+  ]
+}
+```
+
+> Fontos: a `Principal` értékében a saját AWS account ID-jét és a role nevét kell megadni.
+
+#### 5. Tesztelés az EC2-ből
+
+Az EC2 instance-re SSH-val bejelentkezve ellenőrizhetjük, hogy működik-e az hozzáférés:
+
+```bash
+aws s3 ls s3://ec2-s3-read-bucket
+aws s3 cp s3://ec2-s3-read-bucket/valami.txt ~/
+```
+
+Ha a role helyesen került hozzárendelésre, akkor a parancsok sikeresen lefutnak, és a felhasználó nem kell, hogy AWS access keyeket kezeljen a gépen.
+
+Ez a legbiztonságosabb és ajánlott megoldás, ha az EC2 instance-nek S3 hozzáférést kell kapnia.
 
 ### Verziókezelés
 
