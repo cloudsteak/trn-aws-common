@@ -5,13 +5,15 @@
     <style>
       body {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background-image: url("https://github.com/cloudsteak/azurestaticwebsite/blob/main/assets/images/wallpaper-2025-01.jpeg?raw=true");
+        background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 35%, #7c3aed 70%, #ec4899 100%);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         color: white;
         text-align: center;
         padding-top: 1%;
+        min-height: 100vh;
+        margin: 0;
       }
     </style>
   </head>
@@ -22,7 +24,7 @@
       <p>Hamarosan visszatérünk!</p>
       <p id="countdown"></p>
       <script>
-        const targetTime = new Date("September 11, 2025 16:59:59").getTime();
+        const targetTime = new Date("December 31, 2026 23:59:59").getTime();
         const timer = setInterval(() => {
           const now = new Date().getTime();
           const distance = targetTime - now;
