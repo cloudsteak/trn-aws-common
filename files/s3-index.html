@@ -3,17 +3,67 @@
     <meta charset="utf-8" />
     <title>Én weboldalam</title>
     <style>
+      :root {
+        --bg1: #0f172a;
+        --bg2: #1e293b;
+        --panel: rgba(15, 23, 42, 0.75);
+        --primary: #7dd3fc;
+        --accent: #a78bfa;
+        --text: #e2e8f0;
+        --muted: #cbd5e1;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 35%, #7c3aed 70%, #ec4899 100%);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        color: white;
-        text-align: center;
-        padding-top: 1%;
-        min-height: 100vh;
         margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2));
+        color: var(--text);
+      }
+
+      div {
+        width: min(90vw, 700px);
+        padding: 48px 32px;
+        border-radius: 20px;
+        background: var(--panel);
+        border: 1px solid rgba(125, 211, 252, 0.35);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.45);
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: 0.04em;
+        color: var(--primary);
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        color: var(--text);
+      }
+
+      p {
+        margin: 10px 0;
+        font-size: 1.1rem;
+        color: var(--muted);
+      }
+
+      #countdown {
+        margin-top: 24px;
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: 0.05em;
       }
     </style>
   </head>
