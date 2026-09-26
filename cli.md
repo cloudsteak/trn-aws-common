@@ -12,6 +12,7 @@
   - [EC2](#ec2)
   - [S3](#s3)
   - [IAM](#iam)
+  - [CloudFront](#cloudfront)
 
 ## Előfeltételek
 
@@ -184,7 +185,7 @@ aws cloudfront get-distribution --id DISTRIBUTION_ID
 aws cloudfront get-distribution --id DISTRIBUTION_ID --query "Distribution.Status" --output text
 
 # Invalidation létrehozása (cache törlés)
-aws cloudfront create-invalidation --distribution-id DISTRIBUTION_ID --paths "/index.html" "/images/*"
+aws cloudfront create-invalidation --distribution-id DISTRIBUTION_ID --paths "/*.html"
 
 # Invalidation állapotának lekérdezése
 aws cloudfront get-invalidation --distribution-id DISTRIBUTION_ID --id INVALIDATION_ID
